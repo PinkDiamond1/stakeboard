@@ -41,6 +41,8 @@ const leftFillZero = (num: number | undefined, length: number) => {
   return num.toString().padStart(length, '0')
 }
 
+const numberFormat = new Intl.NumberFormat()
+
 export const CollatorList: React.FC<Props> = ({}) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
@@ -163,11 +165,12 @@ export const CollatorList: React.FC<Props> = ({}) => {
               <Collator address={entry.collator} />
             </td>
             <td>
-              {entry.stake} ({leftFillZero(ranks.get(entry.collator), 3)})
+              {numberFormat.format(entry.stake)} (
+              {leftFillZero(ranks.get(entry.collator), 3)})
             </td>
             <td></td>
             <td>{leftFillZero(entry.delegators, 2)} / 25</td>
-            <td>{entry.lowestStake}</td>
+            <td>{numberFormat.format(entry.lowestStake)}</td>
             <td>Add Stake</td>
             <td className={styles.spacer}></td>
           </tr>
