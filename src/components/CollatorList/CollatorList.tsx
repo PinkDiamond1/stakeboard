@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Collator } from '../Collator/Collator'
-import styles from './CollatorListRaw.module.css'
+import styles from './CollatorList.module.css'
 
 export interface Props {}
 
@@ -29,7 +29,7 @@ const dataSet: Data[] = [
 const leftFillZero = (num: number, length: number) =>
   num.toString().padStart(length, '0')
 
-export const CollatorListRaw: React.FC<Props> = ({}) => {
+export const CollatorList: React.FC<Props> = ({}) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
 
@@ -55,7 +55,7 @@ export const CollatorListRaw: React.FC<Props> = ({}) => {
               🔎
             </span>
           </th>
-          <th>Rank / Total Stake</th>
+          <th>Total Stake (Rank)</th>
           <th>Total Reward</th>
           <th>Delegators</th>
           <th>Lowest Stake</th>
