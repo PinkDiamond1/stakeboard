@@ -7,50 +7,79 @@ export interface Props {}
 
 interface Data {
   collator: string
-  stake: string
+  stake: number
   delegators: number
-  lowestStake: string
+  lowestStake: number
 }
 
 const dataSet: Data[] = [
   {
     collator: '5HTySzbJiBYuJow2ZKSHJTnMHF14S8oNnkkEBzzhyqaAPTAH',
-    stake: '200.000',
+    stake: 200_000,
     delegators: 5,
-    lowestStake: '10.000',
+    lowestStake: 10_000,
   },
   {
     collator: '5GQtYZsBDvgXq2KSffpN9HWxtK8rxG4gk1jWSp5MaDb1gurR',
-    stake: '600.000',
+    stake: 600_000,
     delegators: 25,
-    lowestStake: '20.000',
+    lowestStake: 20_000,
   },
 ]
 
 enum SORT_BY {
   Rank,
+  Rank_Reverse,
   TotalReward,
   Delegators,
   LowestStake,
   Favorite,
 }
 
-const leftFillZero = (num: number, length: number) =>
-  num.toString().padStart(length, '0')
+const leftFillZero = (num: number | undefined, length: number) => {
+  if (!num) num = 0
+  return num.toString().padStart(length, '0')
+}
 
 export const CollatorList: React.FC<Props> = ({}) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
-  const [sort, setSort] = useState(SORT_BY.Rank)
+  const [sortBy, setSortBy] = useState(SORT_BY.Rank)
 
+  const [ranks, setRanks] = useState(new Map<string, number>())
   const [data, setData] = useState(dataSet)
 
   useEffect(() => {
-    if (!search.length) return setData(dataSet)
+    let ranks = new Map<string, number>()
 
-    const newData = dataSet.filter((value) => value.collator.startsWith(search))
+    const sortedData = [...dataSet]
+    sortedData.sort((a, b) => b.stake - a.stake)
+
+    sortedData.forEach((value, index) => {
+      ranks.set(value.collator, index + 1)
+    })
+
+    setRanks(ranks)
+  }, [dataSet])
+
+  useEffect(() => {
+    let newData = !search.length
+      ? [...dataSet]
+      : dataSet.filter((value) => value.collator.startsWith(search))
+
+    switch (sortBy) {
+      case SORT_BY.Rank_Reverse: {
+        newData.sort((a, b) => a.stake - b.stake)
+        break
+      }
+      default:
+      case SORT_BY.Rank: {
+        newData.sort((a, b) => b.stake - a.stake)
+        break
+      }
+    }
     setData(newData)
-  }, [search])
+  }, [search, dataSet, sortBy])
 
   return (
     <table role="table" className={styles.table}>
@@ -59,9 +88,9 @@ export const CollatorList: React.FC<Props> = ({}) => {
           <th className={styles.spacer}></th>
           <th
             className={classNames({
-              [styles.activeSort]: sort === SORT_BY.Favorite,
+              [styles.activeSort]: sortBy === SORT_BY.Favorite,
             })}
-            onClick={() => setSort(SORT_BY.Favorite)}
+            onClick={() => setSortBy(SORT_BY.Favorite)}
           >
             Collator{' '}
             <span
@@ -73,33 +102,38 @@ export const CollatorList: React.FC<Props> = ({}) => {
           </th>
           <th
             className={classNames({
-              [styles.activeSort]: sort === SORT_BY.Rank,
+              [styles.activeSort]:
+                sortBy === SORT_BY.Rank || sortBy === SORT_BY.Rank_Reverse,
             })}
-            onClick={() => setSort(SORT_BY.Rank)}
+            onClick={() =>
+              setSortBy(
+                sortBy === SORT_BY.Rank ? SORT_BY.Rank_Reverse : SORT_BY.Rank
+              )
+            }
           >
             Total Stake (Rank)
           </th>
           <th
             className={classNames({
-              [styles.activeSort]: sort === SORT_BY.TotalReward,
+              [styles.activeSort]: sortBy === SORT_BY.TotalReward,
             })}
-            onClick={() => setSort(SORT_BY.TotalReward)}
+            onClick={() => setSortBy(SORT_BY.TotalReward)}
           >
             Total Reward
           </th>
           <th
             className={classNames({
-              [styles.activeSort]: sort === SORT_BY.Delegators,
+              [styles.activeSort]: sortBy === SORT_BY.Delegators,
             })}
-            onClick={() => setSort(SORT_BY.Delegators)}
+            onClick={() => setSortBy(SORT_BY.Delegators)}
           >
             Delegators
           </th>
           <th
             className={classNames({
-              [styles.activeSort]: sort === SORT_BY.LowestStake,
+              [styles.activeSort]: sortBy === SORT_BY.LowestStake,
             })}
-            onClick={() => setSort(SORT_BY.LowestStake)}
+            onClick={() => setSortBy(SORT_BY.LowestStake)}
           >
             Lowest Stake
           </th>
@@ -129,7 +163,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
               <Collator address={entry.collator} />
             </td>
             <td>
-              {entry.stake} ({leftFillZero(index + 1, 3)})
+              {entry.stake} ({leftFillZero(ranks.get(entry.collator), 3)})
             </td>
             <td></td>
             <td>{leftFillZero(entry.delegators, 2)} / 25</td>
