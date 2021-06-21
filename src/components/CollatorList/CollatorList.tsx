@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import classNames from 'classnames'
 import { Collator } from '../Collator/Collator'
 import styles from './CollatorList.module.css'
 
@@ -26,12 +27,21 @@ const dataSet: Data[] = [
   },
 ]
 
+enum SORT_BY {
+  Rank,
+  TotalReward,
+  Delegators,
+  LowestStake,
+  Favorite,
+}
+
 const leftFillZero = (num: number, length: number) =>
   num.toString().padStart(length, '0')
 
 export const CollatorList: React.FC<Props> = ({}) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
+  const [sort, setSort] = useState(SORT_BY.Rank)
 
   const [data, setData] = useState(dataSet)
 
@@ -47,7 +57,12 @@ export const CollatorList: React.FC<Props> = ({}) => {
       <thead className={styles.tableHead}>
         <tr>
           <th className={styles.spacer}></th>
-          <th>
+          <th
+            className={classNames({
+              [styles.activeSort]: sort === SORT_BY.Favorite,
+            })}
+            onClick={() => setSort(SORT_BY.Favorite)}
+          >
             Collator{' '}
             <span
               className={styles.searchButton}
@@ -56,10 +71,38 @@ export const CollatorList: React.FC<Props> = ({}) => {
               🔎
             </span>
           </th>
-          <th>Total Stake (Rank)</th>
-          <th>Total Reward</th>
-          <th>Delegators</th>
-          <th>Lowest Stake</th>
+          <th
+            className={classNames({
+              [styles.activeSort]: sort === SORT_BY.Rank,
+            })}
+            onClick={() => setSort(SORT_BY.Rank)}
+          >
+            Total Stake (Rank)
+          </th>
+          <th
+            className={classNames({
+              [styles.activeSort]: sort === SORT_BY.TotalReward,
+            })}
+            onClick={() => setSort(SORT_BY.TotalReward)}
+          >
+            Total Reward
+          </th>
+          <th
+            className={classNames({
+              [styles.activeSort]: sort === SORT_BY.Delegators,
+            })}
+            onClick={() => setSort(SORT_BY.Delegators)}
+          >
+            Delegators
+          </th>
+          <th
+            className={classNames({
+              [styles.activeSort]: sort === SORT_BY.LowestStake,
+            })}
+            onClick={() => setSort(SORT_BY.LowestStake)}
+          >
+            Lowest Stake
+          </th>
           <th>Action</th>
           <th className={styles.spacer}></th>
         </tr>
@@ -80,7 +123,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
       </thead>
       <tbody>
         {data.map((entry, index) => (
-          <tr className={styles.row}>
+          <tr className={styles.row} key={entry.collator}>
             <td className={styles.spacer}></td>
             <td>
               <Collator address={entry.collator} />

@@ -16,6 +16,7 @@
 .tableHead th {
   font-weight: normal;
   position: relative;
+  cursor: pointer;
 }
 
 .spacer {
@@ -47,4 +48,8 @@ tr.search {
 }
 .search input{
   padding: 2px;
+}
+
+.activeSort {
+  color: var(--color-primary);
 }
