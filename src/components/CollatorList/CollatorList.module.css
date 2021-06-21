@@ -1,10 +1,16 @@
 .table {
   width: 100%;
+  border-collapse: collapse;
 }
 
 .tableHead {
-  font-size: 14px;
+  font-size: var(--font-size-table-header);
   text-align: left;
+}
+
+.tableHead tr {
+  height: 40px;
+  background-color: var(--color-table-header);
 }
 
 .tableHead th {
@@ -12,8 +18,22 @@
   position: relative;
 }
 
+.spacer {
+  width: 20px;
+}
+
 .row {
   height: 70px
+}
+
+.row td {
+  border-bottom: 1px solid gray;
+}
+.row td:first-of-type {
+  border: none;
+}
+.row td:last-of-type {
+  border: none;
 }
 
 
@@ -21,6 +41,10 @@
   cursor: pointer;
 }
 
+tr.search {
+  background-color: var(--color-bg);
+  border-bottom: 1px solid gray;
+}
 .search input{
   padding: 2px;
 }

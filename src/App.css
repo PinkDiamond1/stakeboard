@@ -1,25 +1,36 @@
 @import-normalize;
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+
+:root {
+  --font-primary: 'Ubuntu', sans-serif;
+  --font-countdown: 'M PLUS Rounded 1c', sans-serif;
+  --font-size-primary: 18px;
+  --font-size-small: 10px;
+  --font-size-table-header: 14px;
+
+  --color-bg: #1D1D1B;
+  --color-primary: #FFED00;
+  --color-primary-light: rgba(255, 237, 0, 25%);
+  --color-table-header: #3c3c3b;
+  --color-app-header: var(--color-table-header);
+  --color-gray-text: #c6c6c6;
+  --color-gray-button: #575756;
+  --color-input-bg: var(--color-table-header);
+
+  --size-icon: 24px;
+  --size-identicon: 46px;
+  --height-table-header: 40px;
+}
 
 body {
   color: white;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 18px;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-primary);
 }
 
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -31,17 +42,4 @@ body {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }

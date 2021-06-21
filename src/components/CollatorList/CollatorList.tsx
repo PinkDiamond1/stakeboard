@@ -46,6 +46,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
     <table role="table" className={styles.table}>
       <thead className={styles.tableHead}>
         <tr>
+          <th className={styles.spacer}></th>
           <th>
             Collator{' '}
             <span
@@ -60,11 +61,12 @@ export const CollatorList: React.FC<Props> = ({}) => {
           <th>Delegators</th>
           <th>Lowest Stake</th>
           <th>Action</th>
+          <th className={styles.spacer}></th>
         </tr>
         {showSearch && (
-          <tr>
+          <tr className={styles.search}>
             <th colSpan={42}>
-              <div className={styles.search}>
+              <div>
                 <input
                   type="text"
                   placeholder="Search Collator"
@@ -79,6 +81,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
       <tbody>
         {data.map((entry, index) => (
           <tr className={styles.row}>
+            <td className={styles.spacer}></td>
             <td>
               <Collator address={entry.collator} />
             </td>
@@ -89,6 +92,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
             <td>{leftFillZero(entry.delegators, 2)} / 25</td>
             <td>{entry.lowestStake}</td>
             <td>Add Stake</td>
+            <td className={styles.spacer}></td>
           </tr>
         ))}
       </tbody>
