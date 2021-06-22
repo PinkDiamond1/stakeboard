@@ -9,11 +9,18 @@
 .staked td {
   background-color: var(--color-primary-light);
 }
-.staked td:first-of-type {
-  background-color: inherit;
-}
+.staked td:first-of-type,
 .staked td:last-of-type {
   background-color: inherit;
+}
+
+.stakeRow td {
+  border-top: 1px solid var(--color-primary-light);
+}
+.stakeRow td:first-of-type,
+.stakeRow td:nth-of-type(2),
+.stakeRow td:last-of-type {
+  border-top: none;
 }
 
 .firstRow {
@@ -26,9 +33,7 @@
 .lastRow td {
   border-bottom: 1px solid gray;
 }
-.lastRow td:first-of-type {
-  border: none;
-}
+.lastRow td:first-of-type,
 .lastRow td:last-of-type {
   border: none;
 }

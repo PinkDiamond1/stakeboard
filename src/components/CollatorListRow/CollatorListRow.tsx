@@ -59,6 +59,7 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
           <tr
             className={cx({
               [styles.row]: true,
+              [styles.stakeRow]: true,
               [styles.staked]: entry.stakes.length,
             })}
           >
