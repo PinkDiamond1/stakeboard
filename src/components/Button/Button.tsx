@@ -11,11 +11,13 @@ export interface ButtonProps {
    * Optional click handler
    */
   onClick?: () => void
+  disabled?: boolean
 }
 
 export const Button: React.FC<ButtonProps> = ({
   label,
   children,
+  disabled,
   ...props
 }) => {
   if (children && !label) {
@@ -26,7 +28,12 @@ export const Button: React.FC<ButtonProps> = ({
     )
   }
   return (
-    <button type="button" className={cx(styles.button)} {...props}>
+    <button
+      type="button"
+      className={cx(styles.button)}
+      disabled={disabled}
+      {...props}
+    >
       {label}
     </button>
   )

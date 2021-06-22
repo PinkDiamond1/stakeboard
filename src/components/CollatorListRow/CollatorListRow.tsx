@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import { Collator } from '../Collator/Collator'
 import { Button } from '../Button/Button'
@@ -23,6 +23,7 @@ const format = (amount: number) => `${numberFormat.format(amount)} KLT`
 const COLS = 6
 
 export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
+  const [expanded, setExpanded] = useState(false)
   return (
     <>
       <tr className={styles.firstRow}></tr>
@@ -51,7 +52,7 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
           ) : (
             <Button
               onClick={() => {
-                alert('THIS IS IT!')
+                setExpanded(!expanded)
               }}
             >
               <Icon type="tokens_gray" />
@@ -66,7 +67,7 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
             className={cx({
               [styles.row]: true,
               [styles.stakeRow]: true,
-              [styles.staked]: entry.stakes.length,
+              [styles.staked]: true,
             })}
           >
             <td className={styles.spacer}></td>
@@ -83,6 +84,14 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
             <td className={styles.spacer}></td>
           </tr>
         ))}
+        {expanded && (
+          <tr className={`${styles.row}`}>
+            <td colSpan={2}></td>
+            <td>New Stake</td>
+            <td colSpan={2}>Account</td>
+            <td><Button label="Stake" disabled={true} /></td>
+          </tr>
+        )}
       <tr className={styles.lastRow}>
         <td className={styles.spacer}></td>
         <td colSpan={COLS}></td>

@@ -5,10 +5,16 @@
 .button {
   color: black;
   border-radius: 8px;
-  padding: 5px 20px;
   background-color: yellow;
   border: none;
   text-transform: uppercase;
-  width: 120px;
+  width: 140px;
+  height: 26px;
   cursor: pointer;
+  font-family: var(--font-countdown);
+}
+
+.button:disabled {
+  background-color: var(--color-gray-button);
+  color: white;
 }
