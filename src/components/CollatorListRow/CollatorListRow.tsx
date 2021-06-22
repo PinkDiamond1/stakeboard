@@ -8,6 +8,7 @@ import styles from './CollatorListRow.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { format, leftFillZero } from '../../utils'
 import { StakeRow } from '../StakeRow/StakeRow'
+import { NewStakeRow } from '../NewStakeRow/NewStakeRow'
 
 export interface Props {
   entry: Data
@@ -72,14 +73,7 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
           <StakeRow stakeInfo={stakeInfo} />
         ))}
       {expanded && (
-        <tr className={`${rowStyles.row}`}>
-          <td colSpan={3}></td>
-          <td>New Stake</td>
-          <td colSpan={2}>Account</td>
-          <td>
-            <Button label="Stake" disabled={true} />
-          </td>
-        </tr>
+        <NewStakeRow />
       )}
       <tr className={styles.lastRow}>
         <td className={rowStyles.spacer}></td>
