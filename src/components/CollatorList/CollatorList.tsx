@@ -25,6 +25,12 @@ const dataSet: Data[] = [
     delegators: 25,
     lowestStake: 20_000,
   },
+  {
+    collator: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
+    stake: 400_000,
+    delegators: 15,
+    lowestStake: 15_000,
+  },
 ]
 
 enum SORT_BY {
@@ -165,12 +171,12 @@ export const CollatorList: React.FC<Props> = ({}) => {
               <Collator address={entry.collator} />
             </td>
             <td>
-              {numberFormat.format(entry.stake)} (
+              {numberFormat.format(entry.stake)} KLT (
               {leftFillZero(ranks.get(entry.collator), 3)})
             </td>
             <td></td>
             <td>{leftFillZero(entry.delegators, 2)} / 25</td>
-            <td>{numberFormat.format(entry.lowestStake)}</td>
+            <td>{numberFormat.format(entry.lowestStake)} KLT</td>
             <td>Add Stake</td>
             <td className={styles.spacer}></td>
           </tr>
