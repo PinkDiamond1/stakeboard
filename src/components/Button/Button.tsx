@@ -6,16 +6,27 @@ export interface ButtonProps {
   /**
    * Label of the button.
    */
-  label: string
+  label?: string
   /**
    * Optional click handler
    */
   onClick?: () => void
 }
 
-export const Button: React.FC<ButtonProps> = ({ label, ...props }) => {
+export const Button: React.FC<ButtonProps> = ({
+  label,
+  children,
+  ...props
+}) => {
+  if (children && !label) {
+    return (
+      <span className={cx(styles.buttonRaw)} {...props}>
+        {children}
+      </span>
+    )
+  }
   return (
-    <button className={cx(styles.button)} {...props}>
+    <button type="button" className={cx(styles.button)} {...props}>
       {label}
     </button>
   )

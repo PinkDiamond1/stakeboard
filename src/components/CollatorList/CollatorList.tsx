@@ -20,6 +20,13 @@ const dataSet: Data[] = [
     stake: 600_000,
     delegators: 25,
     lowestStake: 20_000,
+    stakes: [],
+  },
+  {
+    collator: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
+    stake: 400_000,
+    delegators: 15,
+    lowestStake: 15_000,
     stakes: [
       {
         stake: 100_000,
@@ -29,13 +36,6 @@ const dataSet: Data[] = [
         },
       },
     ],
-  },
-  {
-    collator: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
-    stake: 400_000,
-    delegators: 15,
-    lowestStake: 15_000,
-    stakes: [],
   },
 ]
 

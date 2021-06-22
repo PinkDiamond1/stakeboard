@@ -34,9 +34,9 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
       >
         <td className={styles.spacer}></td>
         <td>
-          <span>
+          <Button>
             <Icon type="fav_yellow" />
-          </span>
+          </Button>
           <Collator address={entry.collator} />
         </td>
         <td>
@@ -49,7 +49,13 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
           {entry.stakes.length ? (
             <Icon type="tokens_yellow" />
           ) : (
-            <Icon type="tokens_gray" />
+            <Button
+              onClick={() => {
+                alert('THIS IS IT!')
+              }}
+            >
+              <Icon type="tokens_gray" />
+            </Button>
           )}
         </td>
         <td className={styles.spacer}></td>
