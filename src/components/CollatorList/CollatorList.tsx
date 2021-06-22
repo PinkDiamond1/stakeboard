@@ -129,6 +129,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet }) => {
             <th colSpan={42}>
               <div>
                 <input
+                  autoFocus
+                  autoComplete="off"
                   type="text"
                   placeholder="Search Collator"
                   value={search}
