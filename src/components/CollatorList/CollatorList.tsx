@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import styles from './CollatorList.module.css'
+import rowStyles from '../../styles/row.module.css'
 import { CollatorListRow } from '../CollatorListRow/CollatorListRow'
 import { Icon } from '../Icon/Icon'
 import { Data } from '../../types'
@@ -98,7 +99,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
     <table role="table" className={styles.table}>
       <thead className={styles.tableHead}>
         <tr>
-          <th className={styles.spacer}></th>
+          <th className={rowStyles.spacer}></th>
           <th
             className={cx({
               [styles.activeSort]: sortBy === SORT_BY.Favorite,
@@ -157,7 +158,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
           <th>
             <Icon type="tokens_white" />
           </th>
-          <th className={styles.spacer}></th>
+          <th className={rowStyles.spacer}></th>
         </tr>
         {showSearch && (
           <tr className={styles.search}>

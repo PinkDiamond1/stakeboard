@@ -4,7 +4,7 @@ let cachedApi: ApiPromise | null = null;
 
 export async function connect() {
   if (!cachedApi) {
-    const wsProvider = new WsProvider('wss://peregrine.kilt.io')
+    const wsProvider = new WsProvider('wss://kilt-peregrine-k8s.kilt.io')
     cachedApi = await ApiPromise.create({ provider: wsProvider })
   }
   if (!cachedApi.isConnected) {

@@ -1,0 +1,15 @@
+.spacer {
+  width: 20px;
+}
+
+.row {
+  height: 70px;
+}
+
+.staked td {
+  background-color: var(--color-primary-light);
+}
+.staked td:first-of-type,
+.staked td:last-of-type {
+  background-color: inherit;
+}
