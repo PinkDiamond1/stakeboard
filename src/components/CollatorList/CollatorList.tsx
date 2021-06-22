@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import classNames from 'classnames'
-import { Collator } from '../Collator/Collator'
 import styles from './CollatorList.module.css'
+import { CollatorListRow } from '../CollatorListRow/CollatorListRow'
+import { Data } from '../../types'
 
 export interface Props {}
-
-interface Data {
-  collator: string
-  stake: number
-  delegators: number
-  lowestStake: number
-}
 
 const dataSet: Data[] = [
   {
@@ -41,13 +35,6 @@ enum SORT_BY {
   LowestStake,
   Favorite,
 }
-
-const leftFillZero = (num: number | undefined, length: number) => {
-  if (!num) num = 0
-  return num.toString().padStart(length, '0')
-}
-
-const numberFormat = new Intl.NumberFormat()
 
 export const CollatorList: React.FC<Props> = ({}) => {
   const [showSearch, setShowSearch] = useState(false)
@@ -164,22 +151,12 @@ export const CollatorList: React.FC<Props> = ({}) => {
         )}
       </thead>
       <tbody>
-        {data.map((entry, index) => (
-          <tr className={styles.row} key={entry.collator}>
-            <td className={styles.spacer}></td>
-            <td>
-              <Collator address={entry.collator} />
-            </td>
-            <td>
-              {numberFormat.format(entry.stake)} KLT (
-              {leftFillZero(ranks.get(entry.collator), 3)})
-            </td>
-            <td></td>
-            <td>{leftFillZero(entry.delegators, 2)} / 25</td>
-            <td>{numberFormat.format(entry.lowestStake)} KLT</td>
-            <td>Add Stake</td>
-            <td className={styles.spacer}></td>
-          </tr>
+        {data.map((entry) => (
+          <CollatorListRow
+            entry={entry}
+            rank={ranks.get(entry.collator)}
+            key={entry.collator}
+          />
         ))}
       </tbody>
     </table>

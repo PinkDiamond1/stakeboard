@@ -23,21 +23,6 @@
   width: 20px;
 }
 
-.row {
-  height: 70px
-}
-
-.row td {
-  border-bottom: 1px solid gray;
-}
-.row td:first-of-type {
-  border: none;
-}
-.row td:last-of-type {
-  border: none;
-}
-
-
 .searchButton {
   cursor: pointer;
 }
