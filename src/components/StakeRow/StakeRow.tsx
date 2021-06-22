@@ -10,15 +10,9 @@ export interface Props {
   stakeInfo: Stake
 }
 
-export const StakeRow: React.FC<Props> = ({stakeInfo}) => {
+export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
   return (
-    <tr
-      className={cx({
-        [rowStyles.row]: true,
-        [styles.stakeRow]: true,
-        [rowStyles.staked]: true,
-      })}
-    >
+    <tr className={cx(rowStyles.row, styles.stakeRow, rowStyles.staked)}>
       <td className={rowStyles.spacer}></td>
       <td></td>
       <td></td>

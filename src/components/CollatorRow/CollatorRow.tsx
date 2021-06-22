@@ -14,11 +14,15 @@ export interface Props {
   expanded: boolean
 }
 
-export const CollatorRow: React.FC<Props> = ({ entry, rank, setExpanded, expanded }) => {
+export const CollatorRow: React.FC<Props> = ({
+  entry,
+  rank,
+  setExpanded,
+  expanded,
+}) => {
   return (
     <tr
-      className={cx({
-        [rowStyles.row]: true,
+      className={cx(rowStyles.row, {
         [rowStyles.staked]: entry.stakes.length,
       })}
     >

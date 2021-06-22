@@ -24,8 +24,14 @@ export const CollatorListItem: React.FC<Props> = ({ entry, rank }) => {
         expanded={expanded}
         setExpanded={setExpanded}
       />
-      {entry.stakes.length > 0 &&
-        entry.stakes.map((stakeInfo) => <StakeRow stakeInfo={stakeInfo} />)}
+      {entry.stakes.length > 0 && (
+        <>
+          {entry.stakes.map((stakeInfo) => (
+            <StakeRow stakeInfo={stakeInfo} />
+          ))}
+          <NewStakeRow staked={true}/>
+        </>
+      )}
       {expanded && <NewStakeRow />}
       <tr className={styles.lastRow}>
         <td className={rowStyles.spacer}></td>
