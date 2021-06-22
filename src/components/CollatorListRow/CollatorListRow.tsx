@@ -41,6 +41,18 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
           <Collator address={entry.collator} />
         </td>
         <td>
+          {entry.active ? (
+            <Icon type="bulb_yellow" />
+          ) : (
+            <Icon type="bulb_gray" />
+          )}
+          {entry.activeNext ? (
+            <Icon type="next_session_yellow" />
+          ) : (
+            <Icon type="next_session_gray" />
+          )}
+        </td>
+        <td>
           {format(entry.stake)} ({leftFillZero(rank, 3)})
         </td>
         <td></td>
@@ -72,6 +84,7 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
           >
             <td className={styles.spacer}></td>
             <td></td>
+            <td></td>
             <td>{format(stakeInfo.stake)}</td>
             <td colSpan={2}>
               {stakeInfo.account.name} (AVL:{' '}
@@ -84,14 +97,16 @@ export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
             <td className={styles.spacer}></td>
           </tr>
         ))}
-        {expanded && (
-          <tr className={`${styles.row}`}>
-            <td colSpan={2}></td>
-            <td>New Stake</td>
-            <td colSpan={2}>Account</td>
-            <td><Button label="Stake" disabled={true} /></td>
-          </tr>
-        )}
+      {expanded && (
+        <tr className={`${styles.row}`}>
+          <td colSpan={3}></td>
+          <td>New Stake</td>
+          <td colSpan={2}>Account</td>
+          <td>
+            <Button label="Stake" disabled={true} />
+          </td>
+        </tr>
+      )}
       <tr className={styles.lastRow}>
         <td className={styles.spacer}></td>
         <td colSpan={COLS}></td>

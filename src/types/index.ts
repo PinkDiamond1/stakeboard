@@ -8,6 +8,8 @@ export interface Stake {
 
 export interface Data {
   collator: string
+  active: boolean
+  activeNext: boolean
   stake: number
   delegators: number
   lowestStake: number
