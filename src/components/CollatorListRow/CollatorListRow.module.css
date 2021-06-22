@@ -3,16 +3,32 @@
 }
 
 .row {
-  height: 70px
+  height: 70px;
 }
 
-.row td {
+.staked td {
+  background-color: var(--color-primary-light);
+}
+.staked td:first-of-type {
+  background-color: inherit;
+}
+.staked td:last-of-type {
+  background-color: inherit;
+}
+
+.firstRow {
+  height: 5px;
+}
+
+.lastRow {
+  height: 5px;
+}
+.lastRow td {
   border-bottom: 1px solid gray;
 }
-.row td:first-of-type {
+.lastRow td:first-of-type {
   border: none;
 }
-.row td:last-of-type {
+.lastRow td:last-of-type {
   border: none;
 }
-

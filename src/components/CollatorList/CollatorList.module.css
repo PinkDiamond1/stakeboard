@@ -17,6 +17,7 @@
   font-weight: normal;
   position: relative;
   cursor: pointer;
+  user-select: none;
 }
 
 .spacer {

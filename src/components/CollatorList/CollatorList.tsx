@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import classNames from 'classnames'
+import cx from 'classnames'
 import styles from './CollatorList.module.css'
 import { CollatorListRow } from '../CollatorListRow/CollatorListRow'
+import { Icon } from '../Icon/Icon'
 import { Data } from '../../types'
 
 export interface Props {}
@@ -12,18 +13,29 @@ const dataSet: Data[] = [
     stake: 200_000,
     delegators: 5,
     lowestStake: 10_000,
+    stakes: [],
   },
   {
     collator: '5GQtYZsBDvgXq2KSffpN9HWxtK8rxG4gk1jWSp5MaDb1gurR',
     stake: 600_000,
     delegators: 25,
     lowestStake: 20_000,
+    stakes: [
+      {
+        stake: 100_000,
+        account: {
+          name: 'SPORRAN Account 3',
+          available: 200_000,
+        },
+      },
+    ],
   },
   {
     collator: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
     stake: 400_000,
     delegators: 15,
     lowestStake: 15_000,
+    stakes: [],
   },
 ]
 
@@ -82,7 +94,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
         <tr>
           <th className={styles.spacer}></th>
           <th
-            className={classNames({
+            className={cx({
               [styles.activeSort]: sortBy === SORT_BY.Favorite,
             })}
             onClick={() => setSortBy(SORT_BY.Favorite)}
@@ -90,13 +102,16 @@ export const CollatorList: React.FC<Props> = ({}) => {
             Collator{' '}
             <span
               className={styles.searchButton}
-              onClick={() => setShowSearch(!showSearch)}
+              onClick={(e) => {
+                e.stopPropagation()
+                setShowSearch(!showSearch)
+              }}
             >
-              🔎
+              <Icon type="search" />
             </span>
           </th>
           <th
-            className={classNames({
+            className={cx({
               [styles.activeSort]:
                 sortBy === SORT_BY.Rank || sortBy === SORT_BY.Rank_Reverse,
             })}
@@ -109,7 +124,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
             Total Stake (Rank)
           </th>
           <th
-            className={classNames({
+            className={cx({
               [styles.activeSort]: sortBy === SORT_BY.TotalReward,
             })}
             onClick={() => setSortBy(SORT_BY.TotalReward)}
@@ -117,7 +132,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
             Total Reward
           </th>
           <th
-            className={classNames({
+            className={cx({
               [styles.activeSort]: sortBy === SORT_BY.Delegators,
             })}
             onClick={() => setSortBy(SORT_BY.Delegators)}
@@ -125,14 +140,16 @@ export const CollatorList: React.FC<Props> = ({}) => {
             Delegators
           </th>
           <th
-            className={classNames({
+            className={cx({
               [styles.activeSort]: sortBy === SORT_BY.LowestStake,
             })}
             onClick={() => setSortBy(SORT_BY.LowestStake)}
           >
             Lowest Stake
           </th>
-          <th>Action</th>
+          <th>
+            <Icon type="tokens_white" />
+          </th>
           <th className={styles.spacer}></th>
         </tr>
         {showSearch && (
@@ -150,7 +167,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
           </tr>
         )}
       </thead>
-      <tbody>
+      <tbody className={styles.tableBody}>
         {data.map((entry) => (
           <CollatorListRow
             entry={entry}
