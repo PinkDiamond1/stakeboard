@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import styles from './CollatorList.module.css'
 import rowStyles from '../../styles/row.module.css'
-import { CollatorListRow } from '../CollatorListRow/CollatorListRow'
+import { CollatorListItem } from '../CollatorListItem/CollatorListItem'
 import { Icon } from '../Icon/Icon'
 import { Data } from '../../types'
 
@@ -177,7 +177,7 @@ export const CollatorList: React.FC<Props> = ({}) => {
       </thead>
       <tbody className={styles.tableBody}>
         {data.map((entry) => (
-          <CollatorListRow
+          <CollatorListItem
             entry={entry}
             rank={ranks.get(entry.collator)}
             key={entry.collator}

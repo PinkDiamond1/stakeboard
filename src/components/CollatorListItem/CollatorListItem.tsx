@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Data } from '../../types'
-import styles from './CollatorListRow.module.css'
+import styles from './CollatorListItem.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { StakeRow } from '../StakeRow/StakeRow'
 import { NewStakeRow } from '../NewStakeRow/NewStakeRow'
@@ -13,7 +13,7 @@ export interface Props {
 
 const COLS = 7
 
-export const CollatorListRow: React.FC<Props> = ({ entry, rank }) => {
+export const CollatorListItem: React.FC<Props> = ({ entry, rank }) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <>
