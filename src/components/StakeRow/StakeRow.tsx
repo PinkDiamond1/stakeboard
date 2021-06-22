@@ -1,6 +1,5 @@
 import React from 'react'
 import cx from 'classnames'
-import styles from './StakeRow.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { format } from '../../utils'
 import { Stake } from '../../types'
@@ -12,7 +11,7 @@ export interface Props {
 
 export const StakeRow: React.FC<Props> = ({ stakeInfo }) => {
   return (
-    <tr className={cx(rowStyles.row, styles.stakeRow, rowStyles.staked)}>
+    <tr className={cx(rowStyles.row, rowStyles.stakeRow, rowStyles.staked)}>
       <td className={rowStyles.spacer}></td>
       <td></td>
       <td></td>

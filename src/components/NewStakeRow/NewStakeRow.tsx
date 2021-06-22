@@ -9,9 +9,10 @@ export interface Props {
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false }) => {
   return (
-    <tr className={cx(rowStyles.row, { [rowStyles.staked]: staked })}>
+    <tr className={cx(rowStyles.row, rowStyles.stakeRow, { [rowStyles.staked]: staked })}>
       <td></td>
-      <td colSpan={2}></td>
+      <td></td>
+      <td></td>
       <td>New Stake</td>
       <td colSpan={2}>Account</td>
       <td>
