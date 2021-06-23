@@ -1,0 +1,29 @@
+.Select {
+
+}
+
+.Select .s__control {
+  background-color: var(--color-input-bg);
+  border-radius: 0;
+}
+
+.Select .s__input {
+  color: white;
+}
+
+.Select .s__single-value {
+  color: white;
+}
+
+.Select .s__menu {
+  background-color: var(--color-input-bg);
+  margin-top: 4px;
+}
+
+.Select .s__option--is-focused {
+  background-color: var(--color-gray-button);
+}
+
+.Select .s__option--is-selected {
+  background-color: var(--color-primary-light);
+}

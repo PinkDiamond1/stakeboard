@@ -2,6 +2,8 @@ import React from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
+import { Input } from '../Input/Input'
+import { Select } from '../Select/Select'
 
 export interface Props {
   staked?: boolean
@@ -9,12 +11,20 @@ export interface Props {
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false }) => {
   return (
-    <tr className={cx(rowStyles.row, rowStyles.stakeRow, { [rowStyles.staked]: staked })}>
+    <tr
+      className={cx(rowStyles.row, rowStyles.stakeRow, {
+        [rowStyles.staked]: staked,
+      })}
+    >
       <td></td>
       <td></td>
       <td></td>
-      <td>New Stake</td>
-      <td colSpan={2}>Account</td>
+      <td>
+        <Input />
+      </td>
+      <td colSpan={2} className={rowStyles.column}>
+        <Select />
+      </td>
       <td>
         <Button label="Stake" disabled={true} />
       </td>

@@ -1,0 +1,17 @@
+.number {
+  background-color: var(--color-input-bg);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  height: 35px;
+  max-width: 110px;
+  padding: 0 8px;
+  color: white;
+  text-align: right;
+  font-family: var(--font-primary);
+  font-size: var(--font-size-primary);
+}
+
+.number::-webkit-outer-spin-button,
+.number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
