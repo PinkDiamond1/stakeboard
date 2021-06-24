@@ -10,13 +10,7 @@ import {
 import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 
 import './App.css'
-import { connect } from './utils'
-
-async function getGenesis() {
-  const api = await connect()
-
-  console.log(api.genesisHash.toHex())
-}
+import { getGenesis, getCandidatePool } from './utils'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -32,8 +26,6 @@ async function getAllAccounts() {
 }
 
 getAllAccounts()
-
-getGenesis()
 
 function App() {
   const [web3Enabled, setWeb3Enabled] = useState(false)
@@ -51,7 +43,16 @@ function App() {
     async function doEffect() {
       if (web3Enabled) {
         const allAccounts = await web3Accounts()
-        setAllAccounts(allAccounts)
+        // TODO: We want to filter the account for the ones usable with the connected chain
+        const genesisHash = await getGenesis()
+        await getCandidatePool()
+        setAllAccounts(
+          allAccounts.filter(
+            (account) =>
+              !account.meta.genesisHash?.length ||
+              account.meta.genesisHash === genesisHash
+          )
+        )
       }
     }
     doEffect()
@@ -61,7 +62,9 @@ function App() {
     <div className="App">
       <ul>
         {allAccounts.map((account) => (
-          <li>{account.meta.name} - {account.address}</li>
+          <li>
+            {account.meta.name} - {account.address}
+          </li>
         ))}
       </ul>
     </div>
