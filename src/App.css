@@ -17,6 +17,8 @@
   --color-gray-text: #c6c6c6;
   --color-gray-button: #575756;
   --color-input-bg: var(--color-table-header);
+  --color-top-rank: #95C11F;
+  --color-low-rank: #E94E1B;
 
   --size-icon: 24px;
   --size-identicon: 46px;
@@ -25,6 +27,7 @@
 
 body {
   color: white;
+  background-color: var(--color-gray-button);
   font-family: var(--font-primary);
   font-size: var(--font-size-primary);
 }
