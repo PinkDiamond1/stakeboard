@@ -1,13 +1,20 @@
 import { ApiPromise, WsProvider } from '@polkadot/api'
-import { types10 as types } from '@kiltprotocol/type-definitions'
-import type { Struct, Vec } from '@polkadot/types'
-import type { AccountId, Balance } from '@polkadot/types/interfaces'
+import { types12 as types } from '@kiltprotocol/type-definitions'
+import type { Struct, Vec, Enum, Null, Option } from '@polkadot/types'
+import type {
+  AccountId,
+  Balance,
+  SessionIndex,
+} from '@polkadot/types/interfaces'
 
 let cachedApi: ApiPromise | null = null
 
+// const ENDPOINT = 'wss://kilt-peregrine-k8s.kilt.io'
+const ENDPOINT = 'wss://kilt-peregrine-stg.kilt.io'
+
 export async function connect() {
   if (!cachedApi) {
-    const wsProvider = new WsProvider('wss://kilt-peregrine-k8s.kilt.io')
+    const wsProvider = new WsProvider(ENDPOINT)
     cachedApi = await ApiPromise.create({ provider: wsProvider, types })
   }
   if (!cachedApi.isConnected) {
@@ -46,8 +53,41 @@ export async function getCandidatePool() {
 }
 
 export async function subscribeToCandidatePool(
-  listener: (candidatePool: Vec<Stake>) => void
+  listener: (result: Vec<Stake>) => void
 ) {
   const api = await connect()
   api.query.parachainStaking.candidatePool<Vec<Stake>>(listener)
+}
+
+export interface CollatorStatus extends Enum {
+  asActive: Null
+  asLeaving: SessionIndex
+  isActive: boolean
+  isLeaving: boolean
+}
+export interface Collator extends Struct {
+  id: AccountId
+  stake: Balance
+  delegators: Vec<Stake>
+  total: Balance
+  state: CollatorStatus
+}
+
+export async function subscribeToCollatorState(
+  account: string,
+  listener: (result: Collator) => void
+) {
+  const api = await connect()
+  return await api.query.parachainStaking.collatorState<Collator>(
+    account,
+    listener
+  )
+}
+
+export async function getAllCollatorState() {
+  const api = await connect()
+  return api.query.parachainStaking.collatorState.entries<
+    Option<Collator>,
+    [AccountId]
+  >()
 }

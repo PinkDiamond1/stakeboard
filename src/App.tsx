@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import {
   web3Accounts,
   web3Enable,
@@ -11,6 +11,8 @@ import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 
 import './App.css'
 import { getGenesis, getCandidatePool } from './utils'
+import { CandidatePool } from './container/CandidatePool/CandidatePool'
+import { CandidatesContext } from './utils/CandidatesContext'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -26,6 +28,12 @@ async function getAllAccounts() {
 }
 
 getAllAccounts()
+
+const Consumer: React.FC = () => {
+  const candidates = useContext(CandidatesContext)
+  console.log(candidates)
+  return <></>
+}
 
 function App() {
   const [web3Enabled, setWeb3Enabled] = useState(false)
@@ -67,6 +75,9 @@ function App() {
           </li>
         ))}
       </ul>
+      <CandidatePool>
+        <Consumer />
+      </CandidatePool>
     </div>
   )
 }

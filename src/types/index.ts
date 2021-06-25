@@ -15,3 +15,15 @@ export interface Data {
   lowestStake: number
   stakes: Array<Stake>
 }
+
+export interface Candidate {
+  id: string
+  stake: bigint
+  delegators: {
+    id: string
+    amount: bigint
+  }[]
+  total: bigint
+  isLeaving: bigint | false
+  unsub?: () => void
+}
