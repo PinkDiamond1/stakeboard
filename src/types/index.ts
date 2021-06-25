@@ -25,5 +25,5 @@ export interface Candidate {
   }[]
   total: bigint
   isLeaving: bigint | false
-  unsub?: () => void
+  unsub?: Promise<() => void>
 }

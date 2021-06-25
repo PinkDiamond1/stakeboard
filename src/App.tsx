@@ -32,7 +32,13 @@ getAllAccounts()
 const Consumer: React.FC = () => {
   const candidates = useContext(CandidatesContext)
   console.log(candidates)
-  return <></>
+  return <>{Object.values(candidates).map(candidate => (
+    <>
+    <h3>{candidate.id}</h3>
+    <p>Delegators: {candidate.delegators.length}</p>
+    <p>Total: {(candidate.total /  10n ** 15n).toString()}</p>
+    </>
+  ))}</>
 }
 
 function App() {

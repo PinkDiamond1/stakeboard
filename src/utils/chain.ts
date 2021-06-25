@@ -56,6 +56,10 @@ export async function subscribeToCandidatePool(
   listener: (result: Vec<Stake>) => void
 ) {
   const api = await connect()
+  // @ts-ignore
+  window.trigger = (pool) => {
+    listener(pool)
+  }
   api.query.parachainStaking.candidatePool<Vec<Stake>>(listener)
 }
 
@@ -75,10 +79,10 @@ export interface Collator extends Struct {
 
 export async function subscribeToCollatorState(
   account: string,
-  listener: (result: Collator) => void
+  listener: (result: Option<Collator>) => void
 ) {
   const api = await connect()
-  return await api.query.parachainStaking.collatorState<Collator>(
+  return await api.query.parachainStaking.collatorState<Option<Collator>>(
     account,
     listener
   )
