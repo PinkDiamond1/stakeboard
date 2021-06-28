@@ -13,6 +13,8 @@ import './App.css'
 import { getGenesis, getCandidatePool } from './utils'
 import { CandidatePool } from './container/CandidatePool/CandidatePool'
 import { CandidatesContext } from './utils/CandidatesContext'
+import { CollatorList } from './components/CollatorList/CollatorList'
+import { Data } from './types'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -29,16 +31,49 @@ async function getAllAccounts() {
 
 getAllAccounts()
 
+const femtoToKilt = (big: bigint) => {
+  const inKilt = big / 10n ** 15n
+  return Number(inKilt)
+}
+
 const Consumer: React.FC = () => {
   const candidates = useContext(CandidatesContext)
   console.log(candidates)
-  return <>{Object.values(candidates).map(candidate => (
+
+  const dataSet: Data[] = Object.values(candidates).map((candidate) => {
+    const totalStake =
+      candidate.stake +
+      candidate.delegators.reduce((prev, current) => prev + current.amount, 0n)
+
+    const sortedLowestStake = candidate.delegators.sort((a, b) =>
+      a.amount >= b.amount ? 1 : -1
+    )
+    const lowestStake = sortedLowestStake.length ? femtoToKilt(sortedLowestStake[0].amount) : null
+
+
+    return {
+      active: true,
+      activeNext: true,
+      collator: candidate.id,
+      delegators: candidate.delegators.length,
+      lowestStake: lowestStake,
+      totalStake: femtoToKilt(totalStake),
+      stakes: [],
+    }
+  })
+
+  return (
     <>
-    <h3>{candidate.id}</h3>
-    <p>Delegators: {candidate.delegators.length}</p>
-    <p>Total: {(candidate.total /  10n ** 15n).toString()}</p>
+      {Object.values(candidates).map((candidate) => (
+        <>
+          <h3>{candidate.id}</h3>
+          <p>Delegators: {candidate.delegators.length}</p>
+          <p>Total: {(candidate.total / 10n ** 15n).toString()}</p>
+        </>
+      ))}
+      <CollatorList dataSet={dataSet} />
     </>
-  ))}</>
+  )
 }
 
 function App() {

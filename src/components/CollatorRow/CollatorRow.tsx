@@ -42,11 +42,11 @@ export const CollatorRow: React.FC<Props> = ({
         )}
       </td>
       <td>
-        {format(entry.stake)} ({leftFillZero(rank, 3)})
+        {format(entry.totalStake)} ({leftFillZero(rank, 3)})
       </td>
       <td></td>
       <td>{leftFillZero(entry.delegators, 2)} / 25</td>
-      <td>{format(entry.lowestStake)}</td>
+      <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
       <td>
         {entry.stakes.length ? (
           <Icon type="tokens_yellow" />

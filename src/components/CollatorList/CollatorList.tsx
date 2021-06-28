@@ -31,7 +31,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet }) => {
     let ranks = new Map<string, number>()
 
     const sortedData = [...dataSet]
-    sortedData.sort((a, b) => b.stake - a.stake)
+    sortedData.sort((a, b) => b.totalStake - a.totalStake)
 
     sortedData.forEach((value, index) => {
       ranks.set(value.collator, index + 1)
@@ -47,12 +47,12 @@ export const CollatorList: React.FC<Props> = ({ dataSet }) => {
 
     switch (sortBy) {
       case SORT_BY.Rank_Reverse: {
-        newData.sort((a, b) => a.stake - b.stake)
+        newData.sort((a, b) => a.totalStake - b.totalStake)
         break
       }
       default:
       case SORT_BY.Rank: {
-        newData.sort((a, b) => b.stake - a.stake)
+        newData.sort((a, b) => b.totalStake - a.totalStake)
         break
       }
     }

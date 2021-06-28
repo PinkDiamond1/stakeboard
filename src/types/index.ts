@@ -10,9 +10,9 @@ export interface Data {
   collator: string
   active: boolean
   activeNext: boolean
-  stake: number
+  totalStake: number
   delegators: number
-  lowestStake: number
+  lowestStake: number | null
   stakes: Array<Stake>
 }
 
