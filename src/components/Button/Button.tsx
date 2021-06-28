@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 import cx from 'classnames'
 import styles from './Button.module.css'
 
@@ -10,7 +10,7 @@ export interface ButtonProps {
   /**
    * Optional click handler
    */
-  onClick?: () => void
+  onClick?: (e: MouseEvent) => void
   disabled?: boolean
 }
 

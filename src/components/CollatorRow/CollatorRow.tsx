@@ -22,20 +22,39 @@ export const CollatorRow: React.FC<Props> = ({
   expanded,
 }) => {
   const { dispatch } = useContext(StateContext)
+
+  const hasStakes = entry.stakes.length
+
   return (
     <tr
       className={cx(rowStyles.row, {
-        [rowStyles.staked]: entry.stakes.length,
+        [rowStyles.staked]: hasStakes,
+        [rowStyles.expandable]: !hasStakes,
       })}
+      onClick={() => {
+        if (!hasStakes) {
+          setExpanded(!expanded)
+        }
+      }}
     >
       <td className={rowStyles.spacer}></td>
       <td>
         {entry.favorite ? (
-          <Button onClick={() => dispatch({type: 'unfavorize', id: entry.collator })}>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation()
+              dispatch({ type: 'unfavorize', id: entry.collator })
+            }}
+          >
             <Icon type="fav_yellow" />
           </Button>
         ) : (
-          <Button onClick={() => dispatch({type: 'favorize', id: entry.collator })}>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation()
+              dispatch({ type: 'favorize', id: entry.collator })
+            }}
+          >
             <Icon type="fav_gray" />
           </Button>
         )}
@@ -57,16 +76,10 @@ export const CollatorRow: React.FC<Props> = ({
       <td>{leftFillZero(entry.delegators, 2)} / 25</td>
       <td>{entry.lowestStake ? format(entry.lowestStake) : '--'}</td>
       <td>
-        {entry.stakes.length ? (
+        {hasStakes ? (
           <Icon type="tokens_yellow" />
         ) : (
-          <Button
-            onClick={() => {
-              setExpanded(!expanded)
-            }}
-          >
-            <Icon type="tokens_gray" />
-          </Button>
+          <Icon type="tokens_gray" />
         )}
       </td>
       <td className={rowStyles.spacer}></td>
