@@ -4,22 +4,10 @@ import {
   getAllCollatorState,
   subscribeToCandidatePool,
   subscribeToCollatorState,
+  mapCollatorStateToCandidate
 } from './chain'
 
 let candidates: Record<string, Candidate> = {}
-
-const mapCollatorStateToCandidate = (state: Collator): Candidate => ({
-  id: state.id.toString(),
-  stake: state.stake.toBigInt(),
-  delegators: state.delegators.map((delegator) => {
-    return {
-      id: delegator.owner.toHuman(),
-      amount: delegator.amount.toBigInt(),
-    }
-  }),
-  total: state.total.toBigInt(),
-  isLeaving: state.state.isLeaving ? state.state.asLeaving.toBigInt() : false,
-})
 
 const updateCollator = (collatorState: Collator) => {
   const id = collatorState.id.toString()

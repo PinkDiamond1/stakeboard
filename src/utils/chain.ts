@@ -6,6 +6,7 @@ import type {
   Balance,
   SessionIndex,
 } from '@polkadot/types/interfaces'
+import { Candidate } from '../types'
 
 let cachedApi: ApiPromise | null = null
 
@@ -95,3 +96,16 @@ export async function getAllCollatorState() {
     [AccountId]
   >()
 }
+
+export const mapCollatorStateToCandidate = (state: Collator): Candidate => ({
+  id: state.id.toString(),
+  stake: state.stake.toBigInt(),
+  delegators: state.delegators.map((delegator) => {
+    return {
+      id: delegator.owner.toHuman(),
+      amount: delegator.amount.toBigInt(),
+    }
+  }),
+  total: state.total.toBigInt(),
+  isLeaving: state.state.isLeaving ? state.state.asLeaving.toBigInt() : false,
+})
