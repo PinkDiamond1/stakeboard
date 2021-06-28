@@ -5,6 +5,7 @@ import rowStyles from '../../styles/row.module.css'
 import { CollatorListItem } from '../CollatorListItem/CollatorListItem'
 import { Icon } from '../Icon/Icon'
 import { Data } from '../../types'
+import { Input } from '../Input/Input'
 
 export interface Props {
   dataSet: Data[]
@@ -128,10 +129,9 @@ export const CollatorList: React.FC<Props> = ({ dataSet }) => {
           <tr className={styles.search}>
             <th colSpan={42}>
               <div>
-                <input
+                <Input
                   autoFocus
                   autoComplete="off"
-                  type="text"
                   placeholder="Search Collator"
                   value={search}
                   onInput={(event) => setSearch(event.currentTarget.value)}

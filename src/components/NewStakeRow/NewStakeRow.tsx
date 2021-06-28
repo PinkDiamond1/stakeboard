@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
@@ -10,6 +10,7 @@ export interface Props {
 }
 
 export const NewStakeRow: React.FC<Props> = ({ staked = false }) => {
+  const [newStake, setNewStake] = useState('')
   return (
     <tr
       className={cx(rowStyles.row, rowStyles.stakeRow, {
@@ -20,7 +21,11 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false }) => {
       <td></td>
       <td></td>
       <td>
-        <Input />
+        <Input
+          number
+          value={newStake}
+          onInput={(e) => setNewStake(e.currentTarget.value)}
+        />
       </td>
       <td colSpan={2} className={rowStyles.column}>
         <IdentitySelector />
