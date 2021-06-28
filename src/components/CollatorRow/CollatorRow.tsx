@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import cx from 'classnames'
 import { Collator } from '../Collator/Collator'
 import { Button } from '../Button/Button'
@@ -6,6 +6,7 @@ import { Icon } from '../Icon/Icon'
 import rowStyles from '../../styles/row.module.css'
 import { format, leftFillZero } from '../../utils'
 import { Data } from '../../types'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   entry: Data
@@ -20,6 +21,7 @@ export const CollatorRow: React.FC<Props> = ({
   setExpanded,
   expanded,
 }) => {
+  const { dispatch } = useContext(StateContext)
   return (
     <tr
       className={cx(rowStyles.row, {
@@ -28,9 +30,16 @@ export const CollatorRow: React.FC<Props> = ({
     >
       <td className={rowStyles.spacer}></td>
       <td>
-        <Button>
-          <Icon type="fav_yellow" />
-        </Button>
+        {entry.favorite ? (
+          <Button onClick={() => dispatch({type: 'unfavorize', id: entry.collator })}>
+            <Icon type="fav_yellow" />
+          </Button>
+        ) : (
+          <Button onClick={() => dispatch({type: 'favorize', id: entry.collator })}>
+            <Icon type="fav_gray" />
+          </Button>
+        )}
+
         <Collator address={entry.collator} />
       </td>
       <td>

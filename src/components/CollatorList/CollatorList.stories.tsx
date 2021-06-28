@@ -21,6 +21,7 @@ Primary.args = {
       delegators: 5,
       lowestStake: 10_000,
       stakes: [],
+      favorite: true
     },
     {
       collator: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
@@ -38,6 +39,7 @@ Primary.args = {
           },
         },
       ],
+      favorite: false
     },
     {
       collator: '5GQtYZsBDvgXq2KSffpN9HWxtK8rxG4gk1jWSp5MaDb1gurR',
@@ -47,6 +49,7 @@ Primary.args = {
       delegators: 25,
       lowestStake: 20_000,
       stakes: [],
+      favorite: false
     },
   ]
 }

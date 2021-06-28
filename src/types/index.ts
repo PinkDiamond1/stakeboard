@@ -14,6 +14,7 @@ export interface Data {
   delegators: number
   lowestStake: number | null
   stakes: Array<Stake>
+  favorite: boolean
 }
 
 export interface Candidate {
