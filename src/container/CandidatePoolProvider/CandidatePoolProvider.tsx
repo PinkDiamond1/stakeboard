@@ -5,7 +5,7 @@ import { initialize } from '../../utils/polling'
 
 export interface Props {}
 
-export const CandidatePool: React.FC<Props> = ({ children }) => {
+export const CandidatePoolProvider: React.FC<Props> = ({ children }) => {
   const [candidates, setCandidates] = useState<Record<string, Candidate>>({})
 
   useEffect(() => {

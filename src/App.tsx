@@ -11,7 +11,7 @@ import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 
 import './App.css'
 import { getGenesis, getCandidatePool } from './utils'
-import { CandidatePool } from './container/CandidatePool/CandidatePool'
+import { CandidatePoolProvider } from './container/CandidatePoolProvider/CandidatePoolProvider'
 import { CandidatesContext } from './utils/CandidatesContext'
 import { CollatorList } from './components/CollatorList/CollatorList'
 import { Data } from './types'
@@ -39,7 +39,7 @@ const femtoToKilt = (big: bigint) => {
 
 const Consumer: React.FC = () => {
   const candidates = useContext(CandidatesContext)
-  const {state} = useContext(StateContext)
+  const { state } = useContext(StateContext)
 
   const dataSet: Data[] = Object.values(candidates).map((candidate) => {
     const totalStake =
@@ -108,11 +108,11 @@ function App() {
           </li>
         ))}
       </ul>
-      <CandidatePool>
+      <CandidatePoolProvider>
         <StateProvider>
           <Consumer />
         </StateProvider>
-      </CandidatePool>
+      </CandidatePoolProvider>
     </div>
   )
 }
