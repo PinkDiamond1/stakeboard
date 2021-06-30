@@ -2,9 +2,10 @@
   background-color: var(--color-input-bg);
   border-radius: 0;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
 }
 
-.Select .s__control--is-focused {
+.Select .s__control--is-focused, .Select .s__control--is-focused:hover {
   border-color: var(--color-primary);
 }
 
@@ -33,4 +34,8 @@
 
 .Select .s__option--is-selected {
   background-color: var(--color-primary-light);
+}
+
+.Select .s__option:active {
+  background-color: var(--color-input-border);
 }

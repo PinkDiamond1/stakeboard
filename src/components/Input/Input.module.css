@@ -8,13 +8,13 @@
   font-size: var(--font-size-primary);
 }
 
+.input:hover {
+  border-color: var(--color-input-hover-border);
+}
+
 .input:focus {
   border-color: var(--color-primary);
   outline: none;
-}
-
-.input:hover {
-  border-color: var(--color-input-hover-border);
 }
 
 .number {
