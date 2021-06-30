@@ -19,6 +19,8 @@
   --color-input-bg: var(--color-table-header);
   --color-top-rank: #95C11F;
   --color-low-rank: #E94E1B;
+  --color-input-border: rgba(255, 255, 255, 0.3);
+  --color-input-hover-border: #b3b3b3;
 
   --size-icon: 24px;
   --size-identicon: 46px;

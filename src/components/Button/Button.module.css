@@ -5,7 +5,7 @@
 .button {
   color: black;
   border-radius: 8px;
-  background-color: yellow;
+  background-color: var(--color-primary);
   border: none;
   text-transform: uppercase;
   width: 140px;

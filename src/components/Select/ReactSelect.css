@@ -1,6 +1,11 @@
 .Select .s__control {
   background-color: var(--color-input-bg);
   border-radius: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.Select .s__control--is-focused {
+  border-color: var(--color-primary);
 }
 
 .Select .s__input {
@@ -13,7 +18,13 @@
 
 .Select .s__menu {
   background-color: var(--color-input-bg);
-  margin-top: 4px;
+  margin-top: 0;
+  box-shadow: rgb(20 20 20 / 50%) 0px 8px 20px;
+  border-radius: 0;
+}
+
+.Select .s__menu-list {
+  padding: 0;
 }
 
 .Select .s__option--is-focused {
