@@ -22,6 +22,13 @@
   --color-input-border: rgba(255, 255, 255, 0.3);
   --color-input-hover-border: #b3b3b3;
 
+  --color-dashboard: #646363;
+  --color-staked: #FCAB21;
+  --color-reward: var(--color-primary);
+  --color-unused: #F96943;
+  --color-withdraw: #FB8F72;
+  --color-blocked: #C25639;
+
   --size-icon: 24px;
   --size-identicon: 46px;
   --height-table-header: 40px;

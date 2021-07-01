@@ -5,7 +5,8 @@
   box-shadow: none;
 }
 
-.Select .s__control--is-focused, .Select .s__control--is-focused:hover {
+.Select .s__control--is-focused,
+.Select .s__control--is-focused:hover {
   border-color: var(--color-primary);
 }
 

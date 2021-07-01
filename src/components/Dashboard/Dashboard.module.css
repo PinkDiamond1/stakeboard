@@ -1,0 +1,46 @@
+.container {
+  height: 40px;
+  border-radius: 2px;
+  background-color: white;
+  border: 2px solid white;
+  position: relative;
+  display: inline-block;
+}
+
+.item {
+  display: inline-block;
+}
+
+.staked {
+  background-color: var(--color-staked);
+  height: 100%;
+  width: 20px;
+}
+
+.separator {
+  width: 1px;
+  top: -7px;
+  bottom: -7px;
+  position: absolute;
+  background-color: white;
+}
+
+.separator + .stakeable {
+  margin-left: 1px;
+}
+
+.stakeable {
+  background-color: var(--color-unused);
+  height: 100%;
+  width: 20px;
+}
+
+
+ /* Dashboard */
+ .dashboard {
+   white-space: nowrap;
+ }
+
+ .account {
+   margin-right: 10px;
+ }
