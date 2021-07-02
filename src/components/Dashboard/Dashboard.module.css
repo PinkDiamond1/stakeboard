@@ -1,3 +1,5 @@
+@import './vars.css';
+
 .container {
   height: 40px;
   border-radius: 2px;
@@ -5,6 +7,7 @@
   border: 2px solid white;
   position: relative;
   display: inline-block;
+  margin-left: var(--left-margin);
 }
 
 .item {
@@ -35,12 +38,41 @@
   width: 20px;
 }
 
+/* Dashboard */
+.dashboard {
+  white-space: nowrap;
+}
 
- /* Dashboard */
- .dashboard {
-   white-space: nowrap;
- }
+.account {
+  margin-right: 10px;
+  display: inline-block;
+}
 
- .account {
-   margin-right: 10px;
- }
+.meta {
+  /* margin-bottom: 60px; */
+}
+
+.identicon {
+  display: inline-block;
+  margin-bottom: 65px;
+  position: relative;
+}
+
+.line {
+  width: 2px;
+  background-color: white;
+  height: calc(60px + 2px);
+  margin-left: var(--left-margin);
+  position: absolute;
+  top: calc(46px + 5px);
+}
+
+.info {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+.stakes {
+}

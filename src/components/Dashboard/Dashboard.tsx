@@ -1,18 +1,25 @@
 import React from 'react'
 import styles from './Dashboard.module.css'
 import cx from 'classnames'
+import { Identicon } from '../Identicon/Identicon'
 
 export interface Account {
+  address: string
+  name: string
   staked: number
   stakeable: number
 }
 
 const accounts: Account[] = [
   {
+    address: '5HTySzbJiBYuJow2ZKSHJTnMHF14S8oNnkkEBzzhyqaAPTAH',
+    name: 'KILT Identity 1',
     staked: 4_000,
     stakeable: 10_000,
   },
   {
+    address: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
+    name: 'KILT Identity 2',
     staked: 9_000,
     stakeable: 100_000,
   },
@@ -64,9 +71,22 @@ export const Dashboard: React.FC<Props> = () => {
   return (
     <div className={styles.dashboard}>
       {accounts.map((account) => (
-        <span className={styles.account}>
-          <TokenBar account={account} />
-        </span>
+        <>
+          <span className={styles.account}>
+            <div className={styles.meta}>
+              <div className={styles.identicon}>
+                <Identicon address={account.address} />
+                <div className={styles.line}></div>
+              </div>
+              <div className={styles.info}>
+                <div>{account.name}</div>
+                <div>MY STAKE: 100,000.00 KILT</div>
+                <div>STAKEABLE: 100,000.00 KILT</div>
+              </div>
+            </div>
+            <TokenBar account={account} />
+          </span>
+        </>
       ))}
     </div>
   )
