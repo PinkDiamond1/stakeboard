@@ -2,12 +2,19 @@ import React from 'react'
 import styles from './Dashboard.module.css'
 import cx from 'classnames'
 import { Identicon } from '../Identicon/Identicon'
+import { format } from '../../utils'
 
 export interface Account {
   address: string
   name: string
   staked: number
   stakeable: number
+}
+
+export interface AccountWithPct extends Account {
+  total: number
+  stakedPct: string
+  stakeablePct: string
 }
 
 const divisor = 100
@@ -27,15 +34,14 @@ const BarItem: React.FC<BarItemProps> = ({ style, amount }) => {
 }
 
 export interface TokenBarProps {
-  account: Account
+  account: AccountWithPct
   down?: boolean
 }
 export const TokenBar: React.FC<TokenBarProps> = ({
   account,
   down = false,
 }) => {
-  const { staked, stakeable } = account
-  const total = staked + stakeable
+  const { staked, stakeable, total } = account
 
   const has_staked = staked > 0
   const has_stakeable = stakeable > 0
@@ -58,8 +64,29 @@ export const TokenBar: React.FC<TokenBarProps> = ({
   )
 }
 
+export interface AccountInfoProps {
+  account: AccountWithPct
+}
+export const AccountInfo: React.FC<AccountInfoProps> = ({ account }) => {
+  return (
+    <div className={styles.info}>
+      <div className={styles.name}>{account.name}</div>
+      <div>
+        <span className={styles.stakeLabel}>MY STAKE: </span>
+        <span className={styles.stakeValue}>
+          {`${account.stakedPct}%`} ({format(account.staked)})
+        </span>
+      </div>
+      <div>
+        <span className={styles.stakeLabel}>STAKEABLE: </span>
+        <span className={styles.stakeValue}>{`${account.stakeablePct}%`}</span>
+      </div>
+    </div>
+  )
+}
+
 export interface MetaProps {
-  account: Account
+  account: AccountWithPct
 }
 export const MetaUp: React.FC<MetaProps> = ({ account }) => {
   return (
@@ -68,11 +95,7 @@ export const MetaUp: React.FC<MetaProps> = ({ account }) => {
         <Identicon address={account.address} />
         <div className={styles.line}></div>
       </div>
-      <div className={styles.info}>
-        <div>{account.name}</div>
-        <div>MY STAKE: 100,000.00 KILT</div>
-        <div>STAKEABLE: 100,000.00 KILT</div>
-      </div>
+      <AccountInfo account={account} />
     </div>
   )
 }
@@ -84,11 +107,7 @@ export const MetaDown: React.FC<MetaProps> = ({ account }) => {
         <div className={cx(styles.line, styles.lineDown)}></div>
         <Identicon address={account.address} />
       </div>
-      <div className={styles.info}>
-        <div>{account.name}</div>
-        <div>MY STAKE: 100,000.00 KILT</div>
-        <div>STAKEABLE: 100,000.00 KILT</div>
-      </div>
+      <AccountInfo account={account} />
     </div>
   )
 }
@@ -99,15 +118,26 @@ export interface Props {
 export const Dashboard: React.FC<Props> = ({ accounts }) => {
   return (
     <div className={styles.dashboard}>
-      {accounts.map((account, index) => (
-        <>
-          <span className={styles.account}>
-            {index % 2 === 0 && <MetaUp account={account} />}
-            <TokenBar account={account} down={index % 2 !== 0} />
-            {index % 2 !== 0 && <MetaDown account={account} />}
-          </span>
-        </>
-      ))}
+      {accounts.map((account, index) => {
+        const total = account.staked + account.stakeable
+        const stakedPct = ((account.staked / total) * 100).toFixed(1)
+        const stakeablePct = ((account.stakeable / total) * 100).toFixed(1)
+        const accountWithPct: AccountWithPct = {
+          ...account,
+          total,
+          stakedPct,
+          stakeablePct,
+        }
+        return (
+          <>
+            <span className={styles.account}>
+              {index % 2 === 0 && <MetaUp account={accountWithPct} />}
+              <TokenBar account={accountWithPct} down={index % 2 !== 0} />
+              {index % 2 !== 0 && <MetaDown account={accountWithPct} />}
+            </span>
+          </>
+        )
+      })}
     </div>
   )
 }

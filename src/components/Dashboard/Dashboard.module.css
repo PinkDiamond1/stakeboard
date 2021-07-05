@@ -56,10 +56,25 @@
 }
 
 .meta {
-  /* margin-bottom: 60px; */
 }
 .metaDown {
   margin-top: 65px;
+}
+
+.name {
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
+  font-weight: bold;
+}
+
+.stakeLabel {
+  font-family: var(--font-dashboar);
+  font-size: var(--font-size-small);
+}
+
+.stakeValue {
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
 }
 
 .identicon {
