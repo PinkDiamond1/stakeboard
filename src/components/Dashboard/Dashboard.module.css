@@ -10,6 +10,10 @@
   margin-left: var(--left-margin);
 }
 
+.containerDown {
+  margin-top: 111px;
+}
+
 .item {
   display: inline-block;
 }
@@ -41,21 +45,30 @@
 /* Dashboard */
 .dashboard {
   white-space: nowrap;
+  height: 240px;
 }
 
 .account {
   margin-right: 10px;
   display: inline-block;
+  vertical-align: top;
 }
 
 .meta {
   /* margin-bottom: 60px; */
+}
+.metaDown {
+  margin-top: 65px;
 }
 
 .identicon {
   display: inline-block;
   margin-bottom: 65px;
   position: relative;
+}
+
+.identiconDown {
+  margin-bottom: 0;
 }
 
 .line {
@@ -65,6 +78,10 @@
   margin-left: var(--left-margin);
   position: absolute;
   top: calc(46px + 5px);
+}
+
+.lineDown {
+  top: -67px;
 }
 
 .info {
