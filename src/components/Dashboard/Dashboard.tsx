@@ -15,13 +15,19 @@ const accounts: Account[] = [
     address: '5HTySzbJiBYuJow2ZKSHJTnMHF14S8oNnkkEBzzhyqaAPTAH',
     name: 'KILT Identity 1',
     staked: 4_000,
-    stakeable: 10_000,
+    stakeable: 1_000,
   },
   {
     address: '5DLYuqjWyEFWF6c4oVDh62L4cPZajvupNj6uUNS4tBSux3ay',
     name: 'KILT Identity 2',
-    staked: 9_000,
-    stakeable: 100_000,
+    staked: 5_000,
+    stakeable: 16_000,
+  },
+  {
+    address: '5G1CE7waPWQCoUWLmK3NMh5gV6D8gdc1WDe2G8yST4tc9y3o',
+    name: 'KILT Identity 3',
+    staked: 1_000,
+    stakeable: 0,
   },
 ]
 
