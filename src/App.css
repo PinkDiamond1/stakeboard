@@ -1,13 +1,15 @@
 @import-normalize;
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;700&display=swap');
 
 :root {
   --font-primary: 'Ubuntu', sans-serif;
   --font-countdown: 'M PLUS Rounded 1c', sans-serif;
+  --font-dashboard: 'Asap Condensed', sans-serif;
   --font-size-primary: 18px;
+  --font-size-medium: 14px;
   --font-size-small: 10px;
-  --font-size-table-header: 14px;
 
   --color-bg: #1D1D1B;
   --color-primary: #FFED00;
