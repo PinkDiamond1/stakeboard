@@ -58,7 +58,7 @@
 .meta {
 }
 .metaDown {
-  margin-top: 65px;
+  margin-top: 25px;
 }
 
 .name {
@@ -97,7 +97,8 @@
 }
 
 .lineDown {
-  top: -67px;
+  height: calc(20px + 2px);
+  top: calc(-25px - 2px);
 }
 
 .info {
