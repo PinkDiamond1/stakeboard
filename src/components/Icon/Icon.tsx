@@ -14,6 +14,9 @@ import next_session_gray from '../../icons/next_session_gray.svg'
 import next_session_yellow from '../../icons/next_session_yellow.svg'
 import order_white from '../../icons/order_white.svg'
 import order_yellow from '../../icons/order_yellow.svg'
+import pickaxe_gray from '../../icons/pickax_gray.svg'
+import pickaxe_orange from '../../icons/pickax_orange.svg'
+import pickaxe_yellow from '../../icons/pickax_yellow.svg'
 import search from '../../icons/search.svg'
 import time from '../../icons/time.svg'
 import tokens_gray from '../../icons/tokens_gray.svg'
@@ -37,6 +40,9 @@ const Icons = {
   next_session_yellow,
   order_white,
   order_yellow,
+  pickaxe_gray,
+  pickaxe_orange,
+  pickaxe_yellow,
   search,
   time,
   tokens_gray,

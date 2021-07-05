@@ -62,7 +62,11 @@ export const CollatorRow: React.FC<Props> = ({
         <Collator address={entry.collator} />
       </td>
       <td>
-        {entry.active ? <Icon type="bulb_yellow" /> : <Icon type="bulb_gray" />}
+        {entry.active ? (
+          <Icon type="pickaxe_yellow" />
+        ) : (
+          <Icon type="pickaxe_gray" />
+        )}
         {entry.activeNext ? (
           <Icon type="next_session_yellow" />
         ) : (
