@@ -73,7 +73,7 @@ const accounts: Account[] = [
   {
     address: '5G1CE7waPWQCoUWLmK3NMh5gV6D8gdc1WDe2G8yST4tc9y3o',
     name: 'KILT Identity 3',
-    staked: 8_000,
+    staked: 9_000,
     stakeable: 0,
     used: true
   },

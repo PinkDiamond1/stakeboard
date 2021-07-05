@@ -68,7 +68,7 @@
 }
 
 .stakeLabel {
-  font-family: var(--font-dashboar);
+  font-family: var(--font-dashboard);
   font-size: var(--font-size-small);
 }
 
@@ -85,6 +85,10 @@
 
 .identiconDown {
   margin-bottom: 0;
+}
+
+.unusedIdenticon {
+  margin-right: 5px;
 }
 
 .line {
@@ -105,9 +109,20 @@
   display: inline-block;
   vertical-align: top;
   margin-left: 10px;
-  margin-top: 13px;
+  margin-top: 15px;
   position: absolute;
 }
+
+.unusedInfo {
+  display: inline-block;
+  vertical-align: top;
+  /* margin-left: 10px; */
+  margin-top: 15px;
+  position: absolute;
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
+}
+
 
 .stakes {
 }

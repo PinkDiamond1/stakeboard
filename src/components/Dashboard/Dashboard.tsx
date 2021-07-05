@@ -107,7 +107,7 @@ export const MetaDown: React.FC<MetaProps> = ({ account }) => {
   return (
     <div className={styles.metaDown}>
       <div className={cx(styles.identicon, styles.identiconDown)}>
-        <div className={cx(styles.line, styles.lineDown)}></div>
+        <div className={cx(styles.line, styles.lineDown)} />
         <Identicon address={account.address} />
       </div>
       <AccountInfo account={account} />
@@ -125,11 +125,21 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
 }) => {
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
-    <span>
+    <span className={styles.account}>
       <TokenBar stakeable={total} staked={0} down={down} />
-      {accounts.map((account) => (
-        <Identicon address={account.address} />
-      ))}
+      <div className={styles.metaDown}>
+        <div className={cx(styles.identicon, styles.identiconDown)}>
+          <div className={cx(styles.line, styles.lineDown)} />
+          {accounts.map((account) => (
+            <span className={styles.unusedIdenticon} >
+              <Identicon address={account.address} />
+            </span>
+          ))}
+        </div>
+        <div className={styles.unusedInfo}>
+          <div>{format(total)} available for staking in your {accounts.length} other KILT identities</div>
+        </div>
+      </div>
     </span>
   )
 }
