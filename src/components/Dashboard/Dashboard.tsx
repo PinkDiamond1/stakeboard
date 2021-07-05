@@ -115,6 +115,37 @@ export const MetaDown: React.FC<MetaProps> = ({ account }) => {
   )
 }
 
+export interface UnusedMetaProps {
+  accounts: Account[]
+  total: number
+  down: boolean
+}
+
+export const UnusedMeta: React.FC<UnusedMetaProps> = ({
+  accounts,
+  total,
+  down,
+}) => {
+  return (
+    <div className={cx({ [styles.metaDown]: down, [styles.meta]: !down })}>
+      <div className={cx(styles.identicon, { [styles.identiconDown]: down })}>
+        <div className={cx(styles.line, { [styles.lineDown]: down })} />
+        {accounts.map((account) => (
+          <span className={styles.unusedIdenticon}>
+            <Identicon address={account.address} />
+          </span>
+        ))}
+      </div>
+      <div className={styles.unusedInfo}>
+        <div>
+          {format(total)} available for staking in your {accounts.length} other
+          KILT identities
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export interface UnusedAccountsProps {
   accounts: Account[]
   down?: boolean
@@ -126,20 +157,11 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
     <span className={styles.account}>
+      {!down && (
+        <UnusedMeta accounts={accounts} total={total} down={false} />
+      )}
       <TokenBar stakeable={total} staked={0} down={down} />
-      <div className={styles.metaDown}>
-        <div className={cx(styles.identicon, styles.identiconDown)}>
-          <div className={cx(styles.line, styles.lineDown)} />
-          {accounts.map((account) => (
-            <span className={styles.unusedIdenticon} >
-              <Identicon address={account.address} />
-            </span>
-          ))}
-        </div>
-        <div className={styles.unusedInfo}>
-          <div>{format(total)} available for staking in your {accounts.length} other KILT identities</div>
-        </div>
-      </div>
+      {down && <UnusedMeta accounts={accounts} total={total} down={true}/>}
     </span>
   )
 }
