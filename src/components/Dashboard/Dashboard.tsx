@@ -9,6 +9,7 @@ export interface Account {
   name: string
   staked: number
   stakeable: number
+  used?: boolean
 }
 
 export interface AccountWithPct extends Account {
@@ -34,14 +35,16 @@ const BarItem: React.FC<BarItemProps> = ({ style, amount }) => {
 }
 
 export interface TokenBarProps {
-  account: AccountWithPct
+  staked: number
+  stakeable: number
   down?: boolean
 }
 export const TokenBar: React.FC<TokenBarProps> = ({
-  account,
+  staked,
+  stakeable,
   down = false,
 }) => {
-  const { staked, stakeable, total } = account
+  const total = staked + stakeable
 
   const has_staked = staked > 0
   const has_stakeable = stakeable > 0
@@ -112,13 +115,34 @@ export const MetaDown: React.FC<MetaProps> = ({ account }) => {
   )
 }
 
+export interface UnusedAccountsProps {
+  accounts: Account[]
+  down?: boolean
+}
+export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
+  accounts,
+  down,
+}) => {
+  const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
+  return (
+    <span>
+      <TokenBar stakeable={total} staked={0} down={down} />
+      {accounts.map((account) => (
+        <Identicon address={account.address} />
+      ))}
+    </span>
+  )
+}
+
 export interface Props {
   accounts: Account[]
 }
 export const Dashboard: React.FC<Props> = ({ accounts }) => {
+  const usedAccounts = accounts.filter((account) => account.used)
+  const unusedAccounts = accounts.filter((account) => !account.used)
   return (
     <div className={styles.dashboard}>
-      {accounts.map((account, index) => {
+      {usedAccounts.map((account, index) => {
         const total = account.staked + account.stakeable
         const stakedPct = ((account.staked / total) * 100).toFixed(1)
         const stakeablePct = ((account.stakeable / total) * 100).toFixed(1)
@@ -132,12 +156,20 @@ export const Dashboard: React.FC<Props> = ({ accounts }) => {
           <>
             <span className={styles.account}>
               {index % 2 === 0 && <MetaUp account={accountWithPct} />}
-              <TokenBar account={accountWithPct} down={index % 2 !== 0} />
+              <TokenBar
+                staked={account.staked}
+                stakeable={account.stakeable}
+                down={index % 2 !== 0}
+              />
               {index % 2 !== 0 && <MetaDown account={accountWithPct} />}
             </span>
           </>
         )
       })}
+      <UnusedAccounts
+        accounts={unusedAccounts}
+        down={usedAccounts.length % 2 !== 0}
+      />
     </div>
   )
 }
