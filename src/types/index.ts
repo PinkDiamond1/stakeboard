@@ -10,6 +10,7 @@ export interface Data {
   collator: string
   active: boolean
   activeNext: boolean
+  isLeaving: boolean
   totalStake: number
   delegators: number
   lowestStake: number | null

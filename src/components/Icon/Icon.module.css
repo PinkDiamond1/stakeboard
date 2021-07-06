@@ -2,3 +2,16 @@
   width: 36px;
   vertical-align: middle;
 }
+
+.throbbing {
+  animation: throbbing 1s ease infinite alternate;
+}
+
+@keyframes throbbing {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}

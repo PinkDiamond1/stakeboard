@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import arrow_down from '../../icons/arrow_down.svg'
 import arrow_straight from '../../icons/arrow_straight.svg'
 import arrow_up from '../../icons/arrow_up.svg'
@@ -52,8 +53,15 @@ const Icons = {
 
 export interface Props {
   type: keyof typeof Icons
+  throbbing?: boolean
 }
 
-export const Icon: React.FC<Props> = ({ type }) => {
-  return <img className={styles.img} src={Icons[type]} alt="Favorite" />
+export const Icon: React.FC<Props> = ({ type, throbbing = false }) => {
+  return (
+    <img
+      className={cx(styles.img, { [styles.throbbing]: throbbing })}
+      src={Icons[type]}
+      alt="Favorite"
+    />
+  )
 }
