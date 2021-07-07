@@ -1,0 +1,45 @@
+@import './vars.css';
+
+.meta {
+}
+.metaDown {
+  margin-top: 25px;
+}
+
+.identicon {
+  display: inline-block;
+  margin-bottom: 65px;
+  position: relative;
+}
+
+.identiconDown {
+  margin-bottom: 0;
+}
+
+.unusedIdenticon {
+  margin-right: 5px;
+}
+
+.line {
+  width: 2px;
+  background-color: white;
+  height: calc(60px + 2px);
+  margin-left: var(--left-margin);
+  position: absolute;
+  top: calc(46px + 5px);
+}
+
+.lineDown {
+  height: calc(20px + 2px);
+  top: calc(-25px - 2px);
+}
+
+.unusedInfo {
+  display: inline-block;
+  vertical-align: top;
+  /* margin-left: 10px; */
+  margin-top: 15px;
+  position: absolute;
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
+}

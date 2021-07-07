@@ -1,6 +1,7 @@
 import { Story, Meta } from '@storybook/react'
 
-import { Account, Dashboard, Props } from './Dashboard'
+import { Dashboard, Props } from './Dashboard'
+import { Account } from './types'
 
 export default {
   title: 'Dashboard',

@@ -1,0 +1,11 @@
+.accounts {
+  white-space: nowrap;
+  height: 240px;
+}
+
+.account {
+  margin-right: -10px;
+  display: inline-block;
+  vertical-align: top;
+  min-width: 110px;
+}

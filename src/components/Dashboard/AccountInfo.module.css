@@ -1,0 +1,23 @@
+.info {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
+  margin-top: 15px;
+  position: absolute;
+}
+
+.name {
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
+  font-weight: bold;
+}
+
+.stakeLabel {
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-small);
+}
+
+.stakeValue {
+  font-family: var(--font-dashboard);
+  font-size: var(--font-size-medium);
+}
