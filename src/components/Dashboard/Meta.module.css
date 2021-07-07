@@ -1,9 +1,11 @@
 @import './vars.css';
 
 .meta {
+  position: relative;
 }
 .metaDown {
   margin-top: 25px;
+  position: relative;
 }
 
 .identicon {

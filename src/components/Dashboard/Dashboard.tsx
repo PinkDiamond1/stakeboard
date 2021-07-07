@@ -10,7 +10,9 @@ export interface Props {
 export const Dashboard: React.FC<Props> = ({ accounts }) => {
   return (
     <div className={styles.dashboard}>
-      <Accounts accounts={accounts} />
+      <div className={styles.accounts}>
+        <Accounts accounts={accounts} />
+      </div>
     </div>
   )
 }

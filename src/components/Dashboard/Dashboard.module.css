@@ -1,4 +1,17 @@
-/* Dashboard */
-.dashboards {
+.dashboard {
+  height: 440px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-image: url(../../icons/dna.svg), url(../../icons/decentral.svg);
+  background-repeat: no-repeat, no-repeat;
+  background-position-x: left, right;
+  background-position-y: center, bottom;
+  background-size: 180px, 768px;
+  overflow: scroll;
+  background-color: var(--color-dashboard);
+}
 
+.accounts {
+  margin-left: 130px;
 }

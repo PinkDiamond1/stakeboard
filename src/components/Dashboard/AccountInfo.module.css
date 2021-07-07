@@ -1,9 +1,10 @@
 .info {
-  display: inline-block;
-  vertical-align: top;
   margin-left: 10px;
   margin-top: 15px;
   position: absolute;
+  /* Size of identicon */
+  left: 46px;
+  top: 0;
 }
 
 .name {

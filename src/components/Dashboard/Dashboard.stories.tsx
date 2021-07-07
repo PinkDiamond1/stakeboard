@@ -32,11 +32,6 @@ export default {
       control: { type: 'range', min: 0, max: 300000, step: 50 },
     },
   },
-  parameters: {
-    backgrounds: {
-      default: 'gray',
-    },
-  },
 } as Meta
 
 interface PropsWithCustom extends Props {
