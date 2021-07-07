@@ -157,11 +157,9 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
     <span className={styles.account}>
-      {!down && (
-        <UnusedMeta accounts={accounts} total={total} down={false} />
-      )}
+      {!down && <UnusedMeta accounts={accounts} total={total} down={false} />}
       <TokenBar stakeable={total} staked={0} down={down} />
-      {down && <UnusedMeta accounts={accounts} total={total} down={true}/>}
+      {down && <UnusedMeta accounts={accounts} total={total} down={true} />}
     </span>
   )
 }
