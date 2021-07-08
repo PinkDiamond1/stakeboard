@@ -2,6 +2,7 @@ export interface Stake {
   stake: number
   account: {
     name: string
+    address: string
     available: number
   }
 }

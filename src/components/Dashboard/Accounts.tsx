@@ -43,7 +43,7 @@ export const Accounts: React.FC<Props> = ({ accounts }) => {
           stakeablePct,
         }
         return (
-          <>
+          <React.Fragment key={account.address} >
             <span className={styles.account}>
               {index % 2 === 0 && <MetaUp account={accountWithPct} />}
               <TokenBar
@@ -53,7 +53,7 @@ export const Accounts: React.FC<Props> = ({ accounts }) => {
               />
               {index % 2 !== 0 && <MetaDown account={accountWithPct} />}
             </span>
-          </>
+          </React.Fragment>
         )
       })}
       <UnusedAccounts

@@ -49,7 +49,7 @@ export const UnusedMeta: React.FC<UnusedMetaProps> = ({
       <div className={cx(styles.identicon, { [styles.identiconDown]: down })}>
         <div className={cx(styles.line, { [styles.lineDown]: down })} />
         {accounts.map((account) => (
-          <span className={styles.unusedIdenticon}>
+          <span key={account.address} className={styles.unusedIdenticon}>
             <Identicon address={account.address} />
           </span>
         ))}

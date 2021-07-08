@@ -37,6 +37,7 @@ Primary.args = {
           stake: 100_000,
           account: {
             name: 'SPORRAN Account 3',
+            address: '5CUaCwjWpEk9nDxrmurkeYuVeYNqFyfBB9chk3cHqd54vTBk',
             available: 200_000,
           },
         },
