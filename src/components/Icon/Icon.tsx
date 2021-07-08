@@ -12,6 +12,7 @@ import close from '../../icons/close.svg'
 import exclamation from '../../icons/exclamation.svg'
 import fav_gray from '../../icons/fav_gray.svg'
 import fav_yellow from '../../icons/fav_yellow.svg'
+import KILT_logo from '../../icons/KILT_logo.svg'
 import next_session_gray from '../../icons/next_session_gray.svg'
 import next_session_yellow from '../../icons/next_session_yellow.svg'
 import OFF_70x36 from '../../icons/OFF_70x36.svg'
@@ -22,6 +23,7 @@ import pickaxe_gray from '../../icons/pickax_gray.svg'
 import pickaxe_orange from '../../icons/pickax_orange.svg'
 import pickaxe_yellow from '../../icons/pickax_yellow.svg'
 import search from '../../icons/search.svg'
+import skateboarder from '../../icons/skateboarder.svg'
 import time from '../../icons/time.svg'
 import tokens_gray from '../../icons/tokens_gray.svg'
 import tokens_white from '../../icons/tokens_white.svg'
@@ -41,6 +43,7 @@ const Icons = {
   exclamation,
   fav_gray,
   fav_yellow,
+  KILT_logo,
   next_session_gray,
   next_session_yellow,
   OFF_70x36,
@@ -51,6 +54,7 @@ const Icons = {
   pickaxe_orange,
   pickaxe_yellow,
   search,
+  skateboarder,
   time,
   tokens_gray,
   tokens_white,

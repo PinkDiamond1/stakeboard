@@ -9,3 +9,11 @@
   font-family: var(--font-countdown);
   font-weight: 900;
 }
+
+.spacer {
+  width: 1px;
+  height: 25px;
+  background-color: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
