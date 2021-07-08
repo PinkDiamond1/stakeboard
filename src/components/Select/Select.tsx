@@ -23,6 +23,14 @@ export const Select: React.FC<Props> = ({ options, onChange }) => {
       className={'Select'}
       classNamePrefix="s"
       onChange={onChange}
+      theme={theme => ({
+        ...theme,
+        spacing: {
+          ...theme.spacing,
+          controlHeight: 30,
+          baseUnit: 2
+        }
+      })}
     />
   )
 }

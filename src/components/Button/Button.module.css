@@ -4,14 +4,15 @@
 
 .button {
   color: black;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: var(--color-primary);
   border: none;
   text-transform: uppercase;
-  width: 140px;
-  height: 26px;
+  width: 90px;
+  height: 18px;
   cursor: pointer;
   font-family: var(--font-countdown);
+  font-size: var(--font-size-small);
 }
 
 .button:disabled {

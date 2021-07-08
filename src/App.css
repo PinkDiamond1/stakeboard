@@ -1,15 +1,16 @@
 @import-normalize;
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Asap+Condensed:wght@400;700&display=swap');
 
 :root {
   --font-primary: 'Ubuntu', sans-serif;
   --font-countdown: 'M PLUS Rounded 1c', sans-serif;
   --font-dashboard: 'Asap Condensed', sans-serif;
+  --font-size-big: 28px;
   --font-size-primary: 18px;
   --font-size-medium: 14px;
-  --font-size-small: 10px;
+  --font-size-small: 12px;
 
   --color-bg: #1D1D1B;
   --color-primary: #FFED00;
@@ -25,9 +26,8 @@
   --color-input-hover-border: #b3b3b3;
 
   --color-dashboard: #646363;
-  --color-staked: #FCAB21;
-  --color-reward: var(--color-primary);
-  --color-unused: #F96943;
+  --color-staked: var(--color-primary);
+  --color-unused: #FF9100;
   --color-withdraw: #FB8F72;
   --color-blocked: #C25639;
 
