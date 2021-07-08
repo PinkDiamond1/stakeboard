@@ -4,11 +4,12 @@ import styles from './CollatorList.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { CollatorListItem } from '../CollatorListItem/CollatorListItem'
 import { Icon } from '../Icon/Icon'
-import { Data } from '../../types'
+import { Account, Data } from '../../types'
 import { Input } from '../Input/Input'
 
 export interface Props {
   dataSet: Data[]
+  accounts: Account[]
 }
 
 enum SORT_BY {
@@ -20,7 +21,7 @@ enum SORT_BY {
   Favorite,
 }
 
-export const CollatorList: React.FC<Props> = ({ dataSet }) => {
+export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
   const [sortBy, setSortBy] = useState(SORT_BY.Rank)
@@ -144,6 +145,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet }) => {
       <tbody className={styles.tableBody}>
         {data.map((entry) => (
           <CollatorListItem
+            accounts={accounts}
             entry={entry}
             rank={ranks.get(entry.collator)}
             key={entry.collator}

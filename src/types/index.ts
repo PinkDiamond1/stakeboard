@@ -21,7 +21,7 @@ export interface Data {
 
 export interface Account {
   address: string
-  name: string
+  name?: string
   staked: number
   stakeable: number
   used?: boolean

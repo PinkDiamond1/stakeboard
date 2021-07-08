@@ -17,7 +17,7 @@ export const Page: React.FC<Props> = ({ accounts, dataSet }) => {
       <Header />
       <ChainInfo />
       <Dashboard accounts={accounts} />
-      <CollatorList dataSet={dataSet} />
+      <CollatorList dataSet={dataSet} accounts={accounts} />
     </div>
   )
 }

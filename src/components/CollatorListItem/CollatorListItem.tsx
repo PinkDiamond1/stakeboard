@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Data } from '../../types'
+import { Account, Data } from '../../types'
 import styles from './CollatorListItem.module.css'
 import rowStyles from '../../styles/row.module.css'
 import { StakeRow } from '../StakeRow/StakeRow'
@@ -9,11 +9,16 @@ import { CollatorRow } from '../CollatorRow/CollatorRow'
 export interface Props {
   entry: Data
   rank: number | undefined
+  accounts: Account[]
 }
 
 const COLS = 7
 
-export const CollatorListItem: React.FC<Props> = ({ entry, rank }) => {
+export const CollatorListItem: React.FC<Props> = ({
+  entry,
+  rank,
+  accounts,
+}) => {
   const [expanded, setExpanded] = useState(false)
   return (
     <>
@@ -29,10 +34,10 @@ export const CollatorListItem: React.FC<Props> = ({ entry, rank }) => {
           {entry.stakes.map((stakeInfo) => (
             <StakeRow key={stakeInfo.account.name} stakeInfo={stakeInfo} />
           ))}
-          <NewStakeRow staked={true}/>
+          <NewStakeRow accounts={accounts} staked={true} />
         </>
       )}
-      {expanded && <NewStakeRow />}
+      {expanded && <NewStakeRow accounts={accounts} />}
       <tr className={styles.lastRow}>
         <td className={rowStyles.spacer}></td>
         <td colSpan={COLS}></td>

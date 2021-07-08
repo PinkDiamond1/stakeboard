@@ -4,12 +4,14 @@ import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
+import { Account } from '../../types'
 
 export interface Props {
   staked?: boolean
+  accounts: Account[]
 }
 
-export const NewStakeRow: React.FC<Props> = ({ staked = false }) => {
+export const NewStakeRow: React.FC<Props> = ({ staked = false, accounts }) => {
   const [newStake, setNewStake] = useState('')
   const [account, setAccount] = useState('')
   return (
@@ -29,7 +31,7 @@ export const NewStakeRow: React.FC<Props> = ({ staked = false }) => {
         />
       </td>
       <td colSpan={2} className={rowStyles.column}>
-        <IdentitySelector onChange={(val) => setAccount(val?.value || '')} />
+        <IdentitySelector accounts={accounts} onChange={(val) => setAccount(val?.value || '')} />
       </td>
       <td>
         <Button label="Stake" disabled={!(newStake && account)} />

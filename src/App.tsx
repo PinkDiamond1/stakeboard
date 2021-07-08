@@ -7,14 +7,13 @@ import {
   web3ListRpcProviders,
   web3UseRpcProvider,
 } from '@polkadot/extension-dapp'
-import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 
 import './App.css'
-import { getGenesis, getCandidatePool } from './utils'
-import { CollatorList } from './components/CollatorList/CollatorList'
-import { Data, Candidate } from './types'
+import { getGenesis } from './utils'
+import { Data, Candidate, Account } from './types'
 import { StateContext, StateProvider } from './utils/StateContext'
 import { initialize } from './utils/polling'
+import { Page } from './container/Page/Page'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -36,12 +35,17 @@ const femtoToKilt = (big: bigint) => {
   return Number(inKilt)
 }
 
-const Consumer: React.FC = () => {
+interface ConsumerProps {
+  partialAccounts: Pick<Account, 'address' | 'name'>[]
+}
+
+const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
   const [candidates, setCandidates] = useState<Record<string, Candidate>>({})
   const [selectedCandidates, setSelectedCandidates] = useState<string[]>([])
   const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
-
   const [dataSet, setDataSet] = useState<Data[]>([])
+  const [accounts, setAccounts] = useState<Account[]>([])
+
   const { state } = useContext(StateContext)
 
   useEffect(() => {
@@ -96,12 +100,25 @@ const Consumer: React.FC = () => {
     setDataSet(newDataSet)
   }, [candidates, state, selectedCandidates, currentCandidates])
 
-  return <CollatorList dataSet={dataSet} />
+  useEffect(() => {
+    const completeAccounts: Account[] = partialAccounts.map((account) => ({
+      name: account.name,
+      address: account.address,
+      staked: 5000,
+      stakeable: 2000,
+      used: true,
+    }))
+    setAccounts(completeAccounts)
+  }, [partialAccounts])
+
+  return <Page dataSet={dataSet} accounts={accounts} />
 }
 
 function App() {
   const [web3Enabled, setWeb3Enabled] = useState(false)
-  const [allAccounts, setAllAccounts] = useState<InjectedAccountWithMeta[]>([])
+  const [allAccounts, setAllAccounts] = useState<
+    Pick<Account, 'address' | 'name'>[]
+  >([])
 
   useEffect(() => {
     async function doEffect() {
@@ -117,13 +134,17 @@ function App() {
         const allAccounts = await web3Accounts()
         // TODO: We want to filter the account for the ones usable with the connected chain
         const genesisHash = await getGenesis()
-        await getCandidatePool()
         setAllAccounts(
-          allAccounts.filter(
-            (account) =>
-              !account.meta.genesisHash?.length ||
-              account.meta.genesisHash === genesisHash
-          )
+          allAccounts
+            .filter(
+              (account) =>
+                !account.meta.genesisHash?.length ||
+                account.meta.genesisHash === genesisHash
+            )
+            .map((account) => ({
+              name: account.meta.name,
+              address: account.address,
+            }))
         )
       }
     }
@@ -132,15 +153,8 @@ function App() {
 
   return (
     <div className="App">
-      <ul>
-        {allAccounts.map((account) => (
-          <li>
-            {account.meta.name} - {account.address}
-          </li>
-        ))}
-      </ul>
       <StateProvider>
-        <Consumer />
+        <Consumer partialAccounts={allAccounts} />
       </StateProvider>
     </div>
   )

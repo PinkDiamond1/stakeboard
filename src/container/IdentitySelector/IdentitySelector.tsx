@@ -1,16 +1,17 @@
 import React from 'react'
 import { Select, Props as SelectProps } from '../../components/Select/Select'
+import { Account } from '../../types'
+import { format } from '../../utils'
 
 export interface Props {
   onChange?: SelectProps['onChange']
+  accounts: Account[]
 }
 
-const options = [
-  { value: '5oiuhgc', label: 'KILT Identity 1 (Stakeable: 888,888.88 Y KLT)' },
-  { value: '5iojoi', label: 'KILT Identity 2 (Stakeable: 888,888.88 Y KLT)' },
-  { value: '5Gasd', label: 'KILT Identity 3 (Stakeable: 888,888.88 Y KLT)' },
-]
-
-export const IdentitySelector: React.FC<Props> = ({ onChange }) => {
+export const IdentitySelector: React.FC<Props> = ({ onChange, accounts }) => {
+  const options = accounts.map((account) => ({
+    value: account.address,
+    label: `${account.name} (Stakeable: ${format(account.stakeable)})`,
+  }))
   return <Select options={options} onChange={onChange} />
 }
