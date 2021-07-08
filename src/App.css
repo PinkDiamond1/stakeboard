@@ -38,7 +38,7 @@
 
 body {
   color: white;
-  background-color: var(--color-bg);
+  background-color: var(--color-gray-button);
   font-family: var(--font-primary);
   font-size: var(--font-size-primary);
 }

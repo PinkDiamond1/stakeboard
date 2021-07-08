@@ -12,9 +12,11 @@ export interface Props {
 
 export const Page: React.FC<Props> = ({ accounts, dataSet }) => {
   return (
-    <>
-      <Dashboard accounts={accounts} />
-      <CollatorList dataSet={dataSet} />
-    </>
+    <div className={styles.page}>
+      <div className={styles.container}>
+        <Dashboard accounts={accounts} />
+        <CollatorList dataSet={dataSet} />
+      </div>
+    </div>
   )
 }

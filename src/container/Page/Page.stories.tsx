@@ -7,7 +7,13 @@ import { Primary as CollatorListPrimary } from '../../components/CollatorList/Co
 export default {
   title: 'Page',
   component: Page,
-  argTypes: {},
+  argTypes: {
+  },
+  parameters: {
+    backgrounds: {
+      default: ''
+    }
+  }
 } as Meta
 
 const Template: Story<Props> = ({ accounts, ...args }) => {
