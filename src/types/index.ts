@@ -18,6 +18,7 @@ export interface Data {
   favorite: boolean
 }
 
+/* Types for chain data */
 export interface Candidate {
   id: string
   stake: bigint

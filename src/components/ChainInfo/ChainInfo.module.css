@@ -36,3 +36,9 @@
   color: var(--color-primary);
   margin-left: 10px;
 }
+
+.onOff {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 20px;
+}
