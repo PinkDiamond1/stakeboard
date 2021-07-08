@@ -11,11 +11,10 @@ import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types'
 
 import './App.css'
 import { getGenesis, getCandidatePool } from './utils'
-import { CandidatePoolProvider } from './container/CandidatePoolProvider/CandidatePoolProvider'
-import { CandidatesContext } from './utils/CandidatesContext'
 import { CollatorList } from './components/CollatorList/CollatorList'
-import { Data } from './types'
+import { Data, Candidate } from './types'
 import { StateContext, StateProvider } from './utils/StateContext'
+import { initialize } from './utils/polling'
 
 async function getAllAccounts() {
   const allInjected = await web3Enable('KILT Staking App')
@@ -38,32 +37,64 @@ const femtoToKilt = (big: bigint) => {
 }
 
 const Consumer: React.FC = () => {
-  const candidates = useContext(CandidatesContext)
+  const [candidates, setCandidates] = useState<Record<string, Candidate>>({})
+  const [selectedCandidates, setSelectedCandidates] = useState<string[]>([])
+  const [currentCandidates, setCurrentCandidates] = useState<string[]>([])
+
+  const [dataSet, setDataSet] = useState<Data[]>([])
   const { state } = useContext(StateContext)
 
-  const dataSet: Data[] = Object.values(candidates).map((candidate) => {
-    const totalStake =
-      candidate.stake +
-      candidate.delegators.reduce((prev, current) => prev + current.amount, 0n)
+  useEffect(() => {
+    let stop = () => {}
 
-    const sortedLowestStake = candidate.delegators.sort((a, b) =>
-      a.amount >= b.amount ? 1 : -1
-    )
-    const lowestStake = sortedLowestStake.length
-      ? femtoToKilt(sortedLowestStake[0].amount)
-      : null
-
-    return {
-      active: true,
-      activeNext: true,
-      collator: candidate.id,
-      delegators: candidate.delegators.length,
-      lowestStake: lowestStake,
-      totalStake: femtoToKilt(totalStake),
-      stakes: [],
-      favorite: state.favorites.includes(candidate.id),
+    const doEffect = async () => {
+      stop = await initialize(
+        5,
+        (newCandidates, newSelectedCandidates, newCurrentCandidates) => {
+          setCandidates(newCandidates)
+          setSelectedCandidates(newSelectedCandidates)
+          setCurrentCandidates(newCurrentCandidates)
+        }
+      )
     }
-  })
+    doEffect()
+
+    return () => {
+      stop()
+    }
+  }, [])
+
+  useEffect(() => {
+    const newDataSet: Data[] = Object.values(candidates).map((candidate) => {
+      const totalStake =
+        candidate.stake +
+        candidate.delegators.reduce(
+          (prev, current) => prev + current.amount,
+          0n
+        )
+
+      const sortedLowestStake = candidate.delegators.sort((a, b) =>
+        a.amount >= b.amount ? 1 : -1
+      )
+      const lowestStake = sortedLowestStake.length
+        ? femtoToKilt(sortedLowestStake[0].amount)
+        : null
+
+      return {
+        active: currentCandidates.includes(candidate.id),
+        activeNext: selectedCandidates.includes(candidate.id),
+        collator: candidate.id,
+        delegators: candidate.delegators.length,
+        lowestStake: lowestStake,
+        totalStake: femtoToKilt(totalStake),
+        stakes: [],
+        favorite: state.favorites.includes(candidate.id),
+        isLeaving: !!candidate.isLeaving,
+      }
+    })
+
+    setDataSet(newDataSet)
+  }, [candidates, state, selectedCandidates, currentCandidates])
 
   return <CollatorList dataSet={dataSet} />
 }
@@ -108,11 +139,9 @@ function App() {
           </li>
         ))}
       </ul>
-      <CandidatePoolProvider>
-        <StateProvider>
-          <Consumer />
-        </StateProvider>
-      </CandidatePoolProvider>
+      <StateProvider>
+        <Consumer />
+      </StateProvider>
     </div>
   )
 }

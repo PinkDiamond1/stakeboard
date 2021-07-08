@@ -44,12 +44,6 @@ export async function getCandidatePool() {
   const candidatePool = await api.query.parachainStaking.candidatePool<
     Vec<Stake>
   >()
-
-  candidatePool.forEach((stake) => {
-    console.log(stake.owner.toHuman())
-    console.log(stake.amount.toBigInt())
-  })
-
   return candidatePool
 }
 
@@ -109,3 +103,13 @@ export const mapCollatorStateToCandidate = (state: Collator): Candidate => ({
   total: state.total.toBigInt(),
   isLeaving: state.state.isLeaving ? state.state.asLeaving.toBigInt() : false,
 })
+
+export async function getSelectedCandidates() {
+  const api = await connect()
+  return api.query.parachainStaking.selectedCandidates<Vec<AccountId>>()
+}
+
+export async function getCurrentCandidates() {
+  const api = await connect()
+  return api.query.session.validators<Vec<AccountId>>()
+}
