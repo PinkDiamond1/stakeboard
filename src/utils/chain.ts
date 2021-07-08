@@ -45,7 +45,7 @@ export async function getCandidatePool() {
     Vec<Stake>
   >()
 
-  candidatePool.map((stake) => {
+  candidatePool.forEach((stake) => {
     console.log(stake.owner.toHuman())
     console.log(stake.amount.toBigInt())
   })

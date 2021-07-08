@@ -1,11 +1,10 @@
 import React from 'react'
 import { Dashboard } from '../../components/Dashboard/Dashboard'
 import { CollatorList } from '../../components/CollatorList/CollatorList'
-import { Account } from '../../components/Dashboard/types'
 import { Header } from '../../components/Header/Header'
 import { ChainInfo } from '../../components/ChainInfo/ChainInfo'
 import styles from './Page.module.css'
-import { Data } from '../../types'
+import { Account, Data } from '../../types'
 
 export interface Props {
   accounts: Account[]

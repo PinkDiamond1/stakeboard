@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Accounts.module.css'
-import { Account, AccountWithPct } from './types'
+import { Account, AccountWithPct } from '../../types'
 import { TokenBar} from './TokenBar'
 import { MetaDown, MetaUp } from './Meta'
 import { UnusedMeta } from './Meta'

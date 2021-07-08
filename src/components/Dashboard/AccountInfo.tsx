@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './AccountInfo.module.css'
 import { format } from '../../utils'
-import { AccountWithPct } from './types'
+import { AccountWithPct } from '../../types'
 
 export interface AccountInfoProps {
   account: AccountWithPct

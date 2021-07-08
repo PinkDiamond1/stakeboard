@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './Dashboard.module.css'
-import { Account } from './types'
+import { Account } from '../../types'
 import { Accounts } from './Accounts'
 
 export interface Props {
