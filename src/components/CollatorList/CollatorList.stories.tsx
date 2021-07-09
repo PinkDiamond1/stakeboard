@@ -12,6 +12,26 @@ const Template: Story<Props> = (args) => <CollatorList {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = {
+  accounts: [
+    {
+      address: '5F1P7WAgEkh7YWCHCBcnBx8Gvx2VbCMrjezUjiJRoZmmR464',
+      name: "KILT Identity 1",
+      stakeable: 100_000,
+      staked: 0
+    },
+    {
+      address: '5GN6CNx5L44Ga372PvyD639ukHTvoUktkDCNL4rY7sEFy57P',
+      name: "KILT Identity 2",
+      stakeable: 800_000,
+      staked: 0
+    },
+    {
+      address: '5D7WMHRftdGWGhfAP7NaJfKuRyvfES77ZnjcBzqgMFMjTsGu',
+      name: "KILT Identity 3",
+      stakeable: 10_000,
+      staked: 0
+    }
+  ],
   dataSet: [
     {
       collator: '5HTySzbJiBYuJow2ZKSHJTnMHF14S8oNnkkEBzzhyqaAPTAH',
