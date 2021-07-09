@@ -17,6 +17,7 @@ export const UnusedAccounts: React.FC<UnusedAccountsProps> = ({
   accounts,
   down,
 }) => {
+  if (!accounts.length) return null;
   const total = accounts.reduce((prev, curr) => prev + curr.stakeable, 0)
   return (
     <span className={styles.account}>
