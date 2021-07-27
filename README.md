@@ -6,6 +6,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `yarn storybook`
+
+Runs and opens storybook, to develop components isolated from each other.
+
+The page will refresh automatically, when you do edits.
+
 ### `yarn start`
 
 Runs the app in the development mode.\
