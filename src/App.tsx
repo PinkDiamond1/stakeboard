@@ -91,6 +91,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
         delegators: candidate.delegators.length,
         lowestStake: lowestStake,
         totalStake: femtoToKilt(totalStake),
+        // TODO: fill with account data!
         stakes: [],
         favorite: state.favorites.includes(candidate.id),
         isLeaving: !!candidate.isLeaving,
@@ -101,6 +102,7 @@ const Consumer: React.FC<ConsumerProps> = ({ partialAccounts }) => {
   }, [candidates, state, selectedCandidates, currentCandidates])
 
   useEffect(() => {
+    // TODO: get data on actual stake / stakeable / other amounts
     const completeAccounts: Account[] = partialAccounts.map((account) => ({
       name: account.name,
       address: account.address,
