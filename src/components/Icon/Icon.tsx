@@ -1,5 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
+
 import arrow_down from '../../icons/arrow_down.svg'
 import arrow_straight from '../../icons/arrow_straight.svg'
 import arrow_up from '../../icons/arrow_up.svg'
@@ -9,6 +10,7 @@ import bulb_gray from '../../icons/bulb_gray.svg'
 import bulb_yellow from '../../icons/bulb_yellow.svg'
 import check from '../../icons/check.svg'
 import close from '../../icons/close.svg'
+import exclamation_new from '../../icons/exclamation_new.svg'
 import exclamation from '../../icons/exclamation.svg'
 import fav_gray from '../../icons/fav_gray.svg'
 import fav_yellow from '../../icons/fav_yellow.svg'
@@ -40,6 +42,7 @@ const Icons = {
   bulb_yellow,
   check,
   close,
+  exclamation_new,
   exclamation,
   fav_gray,
   fav_yellow,
