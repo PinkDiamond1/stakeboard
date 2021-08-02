@@ -21,6 +21,10 @@ enum SORT_BY {
   Favorite,
 }
 
+function iconSortType(actual: number, expect: number) {
+  return actual === expect ? 'order_yellow' : 'order_white'
+}
+
 export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
   const [showSearch, setShowSearch] = useState(false)
   const [search, setSearch] = useState('')
@@ -62,7 +66,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
   }, [search, dataSet, sortBy])
 
   return (
-    <table role="table" className={styles.table}>
+    <table role='table' className={styles.table}>
       <thead className={styles.tableHead}>
         <tr>
           <th className={rowStyles.spacer}></th>
@@ -72,7 +76,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             })}
             onClick={() => setSortBy(SORT_BY.Favorite)}
           >
-            Collator{' '}
+            Collator
+            <Icon type={iconSortType(sortBy, SORT_BY.Favorite)} width={13} />
             <span
               className={styles.searchButton}
               onClick={(e) => {
@@ -80,7 +85,7 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
                 setShowSearch(!showSearch)
               }}
             >
-              <Icon type="search" />
+              <Icon type='search' />
             </span>
           </th>
           <th></th>
@@ -95,23 +100,15 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
               )
             }
           >
-            Total Stake (Rank)
-          </th>
-          <th
-            className={cx({
-              [styles.activeSort]: sortBy === SORT_BY.TotalReward,
-            })}
-            onClick={() => setSortBy(SORT_BY.TotalReward)}
-          >
-            Total Reward
-          </th>
-          <th
-            className={cx({
-              [styles.activeSort]: sortBy === SORT_BY.Delegators,
-            })}
-            onClick={() => setSortBy(SORT_BY.Delegators)}
-          >
-            Delegators
+            Rank | Total Stake
+            {sortBy === SORT_BY.Rank ? (
+              <Icon type={iconSortType(sortBy, SORT_BY.Rank)} width={13} />
+            ) : (
+              <Icon
+                type={iconSortType(sortBy, SORT_BY.Rank_Reverse)}
+                width={13}
+              />
+            )}
           </th>
           <th
             className={cx({
@@ -120,9 +117,29 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
             onClick={() => setSortBy(SORT_BY.LowestStake)}
           >
             Lowest Stake
+            <Icon type={iconSortType(sortBy, SORT_BY.LowestStake)} width={13} />
+          </th>
+          <th
+            className={cx({
+              [styles.activeSort]: sortBy === SORT_BY.Delegators,
+            })}
+            onClick={() => setSortBy(SORT_BY.Delegators)}
+          >
+            Delegators
+            <Icon type={iconSortType(sortBy, SORT_BY.Delegators)} width={13} />
+          </th>
+          <th
+            className={cx({
+              [styles.activeSort]: sortBy === SORT_BY.TotalReward,
+            })}
+            onClick={() => setSortBy(SORT_BY.TotalReward)}
+          >
+            Reward (%) / Year
+            <Icon type={iconSortType(sortBy, SORT_BY.TotalReward)} width={13} />
           </th>
           <th>
-            <Icon type="tokens_white" />
+            <Icon type='tokens_white' />
+            <Icon type='order_white' width={13} />
           </th>
           <th className={rowStyles.spacer}></th>
         </tr>
@@ -132,8 +149,8 @@ export const CollatorList: React.FC<Props> = ({ dataSet, accounts }) => {
               <div>
                 <Input
                   autoFocus
-                  autoComplete="off"
-                  placeholder="Search Collator"
+                  autoComplete='off'
+                  placeholder='Search Collator'
                   value={search}
                   onInput={(event) => setSearch(event.currentTarget.value)}
                 />

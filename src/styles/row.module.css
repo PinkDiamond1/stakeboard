@@ -10,6 +10,12 @@
   padding-right: 20px;
 }
 
+.wrapper {
+  display: inline-flex;
+  flex-flow: column wrap;
+  width: 100%;
+}
+
 .staked td {
   background-color: var(--color-primary-light);
 }
@@ -20,6 +26,7 @@
 
 .stakeRow td {
   border-top: 1px solid var(--color-primary-light);
+  font-size: var(--font-size-small);
 }
 .stakeRow td:first-of-type,
 .stakeRow td:nth-of-type(2),
@@ -29,4 +36,43 @@
 
 .expandable {
   cursor: pointer;
+}
+
+.topRank {
+  color: var(--color-green-text);
+  padding-right: 15px;
+}
+
+.candidatePool {
+  color: var(--color-red-text);
+  padding-right: 15px;
+}
+
+.informationBox {
+  width: 60%;
+  padding-top: 10px;
+}
+
+.myStake {
+  color: var(--color-yellow-text);
+  font-size: var(--font-size-primary);
+  font-weight: var(--font-weight);
+  padding-top: 3px;
+}
+
+.stakeable {
+  color: var(--color-orange-text);
+  font-size: var(--font-size-primary);
+  font-weight: var(--font-weight);
+  padding-top: 3px;
+}
+
+.identityStaked {
+  font-size: var(--font-size-primary);
+  font-weight: var(--font-weight);
+  padding-top: 3px;
+}
+
+.padTop10 {
+  padding-top: 10px;
 }

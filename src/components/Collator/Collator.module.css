@@ -1,7 +1,20 @@
+.wrapper {
+  display: inline-flex;
+  flex-flow: column wrap;
+}
+
 .identicon {
   margin-right: 10px;
 }
 
 .address {
   vertical-align: middle;
+  font-size: var(--font-size-large);
+  padding-left: 10px;
+}
+
+.date {
+  padding-top: 5px;
+  font-size: var(--font-size-small);
+  padding-left: 10px;
 }
