@@ -13,5 +13,11 @@ const Template: Story<Props> = ({ ...args }) => {
 
 export const Primary = Template.bind({})
 Primary.args = {
+  modalStake: {
+    name: 'KILT Identity 1',
+    address: '56713563215473164',
+    newStake: 123
+  },
   isVisible: true,
+  status: 'increaseStake'
 }
