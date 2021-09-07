@@ -175,3 +175,9 @@ export async function leaveDelegators(delegator: string) {
   const tx = api.tx.parachainStaking.leaveDelegators()
   return signAndSend(delegator, tx)
 }
+
+export async function withdrawStake(account: string) {
+  const api = await connect()
+  const tx = api.tx.parachainStaking.unlockUnstaked(account)
+  return signAndSend(account, tx)
+}
