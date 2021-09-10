@@ -9,7 +9,8 @@ export interface Props {
 
 export const Modal: React.FC<Props> = ({ children, buttons, title }) => {
   return (
-    <div className={styles.modalOverlay}>
+    <div>
+      <div className={styles.modalOverlay} />
       <DialogModal open className={styles.modal}>
         <div className={styles.modalTitleWrapper}>
           <span className={styles.modalTitle}>{title}</span>
