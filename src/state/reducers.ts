@@ -67,3 +67,29 @@ export const toggleDetailedIdentityViewReducer: Reducer<
       return state
   }
 }
+
+export type ErrorAction =
+  | {
+      type: 'handleError'
+      error: boolean
+      errorInfo: any
+    }
+  | {
+      type: 'resetError'
+      error: boolean
+      errorInfo: any
+    }
+
+export const errorReducer: Reducer<any, ErrorAction> = (
+  state: boolean,
+  action: ErrorAction
+) => {
+  switch (action.type) {
+    case 'handleError':
+      return { error: action.error, errorInfo: action.errorInfo }
+    case 'resetError':
+      return { error: action.error, errorInfo: action.errorInfo }
+    default:
+      return state
+  }
+}

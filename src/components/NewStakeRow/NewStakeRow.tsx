@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
@@ -10,6 +10,7 @@ import { StakeModal } from '../StakeModal/StakeModal'
 import { getStatus } from '../../utils/stakeStatus'
 import { joinDelegators } from '../../utils'
 import { kiltToFemto } from '../../utils/conversion'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   staked?: boolean
@@ -17,9 +18,21 @@ export interface Props {
   collator: string
 }
 
-async function stake(account: Account, collator: string, amount: number) {
+async function stake(
+  account: Account,
+  collator: string,
+  amount: number,
+  onSuccess: () => void,
+  onError: (error: Error) => void
+) {
   const amountInFemto = kiltToFemto(amount)
-  return joinDelegators(account.address, collator, amountInFemto)
+  return joinDelegators(
+    account.address,
+    collator,
+    amountInFemto,
+    onSuccess,
+    onError
+  )
 }
 
 export const NewStakeRow: React.FC<Props> = ({
@@ -28,6 +41,7 @@ export const NewStakeRow: React.FC<Props> = ({
   collator,
 }) => {
   const { isVisible, toggleModal } = useModal()
+  const { dispatch } = useContext(StateContext)
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')
   const account = useMemo(() => {
@@ -35,10 +49,17 @@ export const NewStakeRow: React.FC<Props> = ({
     return accounts.find((val) => val.address === address)
   }, [address, accounts])
 
+  const onSuccess = () => {
+    console.log('success', new Date().getTime())
+  }
+  const onError = (error: any) => {
+    dispatch({ type: 'handleError', error: true, errorInfo: error })
+  }
+
   const handleDelegatorStake = async () => {
     if (!account) throw new Error('No account selected')
     if (!newStake) throw new Error('No amount given')
-    await stake(account, collator, newStake)
+    await stake(account, collator, newStake, onSuccess, onError)
     toggleModal()
   }
 

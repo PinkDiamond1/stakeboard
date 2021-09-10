@@ -6,7 +6,7 @@ interface Props {
   children: ReactNode
 }
 interface State {
-  error: any
+  error: boolean
   errorInfo: any
 }
 
@@ -33,8 +33,9 @@ class ErrorBoundary extends React.Component<Props, State> {
     return error ? (
       <Modal open={error} className={styles.modal}>
         <>
-          You have an {error.toString()} <br />
-          Please refresh the page
+          There was an Error:
+          <p className={styles.errorText}>{errorInfo.toString()}</p>
+          Please reload the page
         </>
         <>{error && errorInfo.componentStack}</>
         <br />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import {
@@ -14,6 +14,7 @@ import { Input } from '../Input/Input'
 import { getStatus } from '../../utils/stakeStatus'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { kiltToFemto } from '../../utils/conversion'
+import { StateContext } from '../../utils/StateContext'
 
 export interface Props {
   stakeInfo: DataStake
@@ -24,38 +25,43 @@ export interface Props {
 export function stakeMore(
   account: Account,
   collator: string,
-  difference: number
+  difference: number,
+  onSuccess: () => void,
+  onError: (error: Error) => void
 ) {
   const differenceInFemto = kiltToFemto(difference)
-  return delegatorStakeMore(account.address, collator, differenceInFemto)
+  return delegatorStakeMore(
+    account.address,
+    collator,
+    differenceInFemto,
+    onSuccess,
+    onError
+  )
 }
 
 export async function stakeLess(
   account: Account,
   collator: string,
-  difference: number
+  difference: number,
+  onSuccess: () => void,
+  onError: (error: Error) => void
 ) {
   const differenceInFemto = kiltToFemto(difference)
-  return delegatorStakeLess(account.address, collator, differenceInFemto)
+  return delegatorStakeLess(
+    account.address,
+    collator,
+    differenceInFemto,
+    onSuccess,
+    onError
+  )
 }
 
-export function unstake(account: Account) {
-  return leaveDelegators(account.address)
-}
-
-export async function changeStake(
+export function unstake(
   account: Account,
-  collator: string,
-  current: number,
-  newStake: number | undefined
+  onSuccess: () => void,
+  onError: (error: Error) => void
 ) {
-  if (!newStake || newStake === 0) {
-    await unstake(account)
-  } else if (newStake > current) {
-    await stakeMore(account, collator, newStake - current)
-  } else if (newStake < current) {
-    await stakeLess(account, collator, current - newStake)
-  }
+  return leaveDelegators(account.address, onSuccess, onError)
 }
 
 export const StakeRow: React.FC<Props> = ({
@@ -63,13 +69,35 @@ export const StakeRow: React.FC<Props> = ({
   accounts,
   collator,
 }) => {
+  const { dispatch } = useContext(StateContext)
   const { isVisible, toggleModal } = useModal()
   const [editStake, setEditStake] = useState(false)
   const [newStake, setNewStake] = useState<number | undefined>()
 
+  const onSuccess = () => {
+    console.log('success', new Date().getTime())
+  }
+  const onError = (error: any) => {
+    dispatch({ type: 'handleError', error: true, errorInfo: error })
+  }
+
   const handleEdit = () => {
     setEditStake(!editStake)
     setNewStake(stakeInfo.stake)
+  }
+  const changeStake = async (
+    account: Account,
+    collator: string,
+    current: number,
+    newStake: number | undefined
+  ) => {
+    if (!newStake || newStake === 0) {
+      await unstake(account, onSuccess, onError)
+    } else if (newStake > current) {
+      await stakeMore(account, collator, newStake - current, onSuccess, onError)
+    } else if (newStake < current) {
+      await stakeLess(account, collator, current - newStake, onSuccess, onError)
+    }
   }
 
   const account = accounts.find(

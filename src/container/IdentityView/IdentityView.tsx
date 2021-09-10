@@ -10,6 +10,7 @@ import { femtoToKilt } from '../../utils/conversion'
 import { padTime, blockToTime } from '../../utils/timeConvert'
 import { ChainTypes } from '../../types'
 import { format } from '../../utils/index'
+
 export interface Props {
   toggleDetailedIdentityView: () => void
   bestBlock?: ChainTypes.BlockNumber
@@ -31,10 +32,16 @@ export const IdentityView: React.FC<Props> = ({
     state: { account },
     dispatch,
   } = useContext(StateContext)
+  const onSuccess = () => {
+    console.log('success', new Date().getTime())
+  }
+  const onError = (error: any) => {
+    dispatch({ type: 'handleError', error: true, errorInfo: error })
+  }
 
   const withdraw = async () => {
     if (readyToWithdraw > 0 && account) {
-      await withdrawStake(account.address)
+      await withdrawStake(account.address, onSuccess, onError)
     }
   }
 
