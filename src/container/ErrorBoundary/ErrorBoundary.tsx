@@ -1,19 +1,18 @@
-import { Modal } from 'react-dialog-polyfill'
-import styles from '../../styles/modal.module.css'
 import React, { ReactNode } from 'react'
+import { Modal } from '../../components/Modal/Modal'
+import styles from '../../components/Modal/Modal.module.css'
 
 interface Props {
   children: ReactNode
 }
 interface State {
-  error: boolean
-  errorInfo: any
+  error: any
 }
 
 class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.state = { error: false, errorInfo: '' }
+    this.state = { error: false }
   }
 
   static getDerivedStateFromError(error: any) {
@@ -21,24 +20,19 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 
   componentDidCatch(error: any, errorInfo: any) {
-    this.setState({
-      error,
-      errorInfo,
-    })
+    // TODO: log error to error logging service
   }
 
   render(): ReactNode {
-    const { error, errorInfo } = this.state
+    const { error } = this.state
     const { children } = this.props
     return error ? (
-      <Modal open={error} className={styles.modal}>
+      <Modal title="Error">
         <>
           There was an Error:
-          <p className={styles.errorText}>{errorInfo.toString()}</p>
+          <p className={styles.errorText}>{error.toString()}</p>
           Please reload the page
         </>
-        <>{error && errorInfo.componentStack}</>
-        <br />
       </Modal>
     ) : (
       children
