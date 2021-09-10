@@ -32,13 +32,8 @@
 }
 
 .textWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   padding-top: 25px;
   padding-bottom: 25px;
-  width: 250px;
-  min-height: 100px;
   max-height: 300px;
   font-size: var(--font-size-medium);
   text-align: center;
@@ -48,7 +43,7 @@
 .buttonWrapper {
   width: 215px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .buttonClose {
