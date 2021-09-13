@@ -9,31 +9,22 @@ export type ConnectionActions =
   | { type: 'error'; err: any }
 
 export type AccountActions =
-  | { type: 'selectedAccount'; account: Account }
-  | { type: 'unselectAccount'; account: undefined }
-
-export type ToggleDetailedIdentityViewAction = {
-  type: 'toggleIdentityView'
-  toggleDetailedIdentityView: boolean
-}
+  | { type: 'selectAccount'; account: Account }
+  | { type: 'unselectAccount' }
 
 export type ErrorActions =
   | {
       type: 'handleError'
-      error: boolean
-      errorInfo: any
+      error: any
     }
   | {
       type: 'resetError'
-      error: boolean
-      errorInfo: any
     }
 
 export type Actions =
   | PausedAction
   | ConnectionActions
   | AccountActions
-  | ToggleDetailedIdentityViewAction
   | ErrorActions
 
 export const pauseReducer: Reducer<boolean, Actions> = (state, action) => {
@@ -50,33 +41,26 @@ export const accountReducer: Reducer<Account | undefined, Actions> = (
   action
 ) => {
   switch (action.type) {
-    case 'selectedAccount':
+    case 'selectAccount':
       return { ...action.account }
     case 'unselectAccount':
-      return action.account
+      return undefined
     default:
       return state
   }
 }
 
-export const toggleDetailedIdentityViewReducer: Reducer<boolean, Actions> = (
-  state,
-  action
-) => {
-  switch (action.type) {
-    case 'toggleIdentityView':
-      return !action.toggleDetailedIdentityView
-    default:
-      return state
-  }
+export type ErrorState = {
+  hasError: boolean
+  error: any
 }
 
-export const errorReducer: Reducer<any, Actions> = (state, action) => {
+export const errorReducer: Reducer<ErrorState, Actions> = (state, action) => {
   switch (action.type) {
     case 'handleError':
-      return { error: action.error, errorInfo: action.errorInfo }
+      return { hasError: true, error: action.error }
     case 'resetError':
-      return { error: action.error, errorInfo: action.errorInfo }
+      return { hasError: false, error: undefined }
     default:
       return state
   }
