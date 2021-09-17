@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import styles from './Dashboard.module.css'
 import { Account, ChainTypes } from '../../types'
 import { Accounts } from './Accounts'
 import { StateContext } from '../../utils/StateContext'
 import { IdentityView } from '../../container/IdentityView/IdentityView'
+import { Scale } from '../Scale/Scale'
 
 export interface Props {
   accounts: Account[]
@@ -35,11 +36,18 @@ export const Dashboard: React.FC<Props> = ({ accounts, bestBlock }) => {
         {account ? (
           <IdentityView bestBlock={bestBlock} />
         ) : (
-          <div className={styles.accountsContainer}>
-            <div className={styles.accounts}>
-              <Accounts accounts={accounts} />
+          <>
+            <div className={styles.accountsContainer}>
+              <>
+                <div className={styles.accounts}>
+                  <Accounts accounts={accounts} />
+                </div>
+              </>
             </div>
-          </div>
+            <div className={styles.scaleContainer}>
+              <Scale />
+            </div>
+          </>
         )}
       </RefreshPausedOverlay>
     </div>
