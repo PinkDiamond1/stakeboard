@@ -1,0 +1,45 @@
+.backgroundImage {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-x: right;
+  background-position-y: center;
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  padding-left: 210px;
+  padding-top: 70px;
+  max-width: 750px;
+  padding-right: 20px;
+}
+
+.highlighted {
+  color: var(--color-yellow-text);
+  font-size: var(--font-size-primary);
+  display: inline-block;
+}
+
+.highlighted:first-child {
+  margin-bottom: 15px;
+}
+
+.highlighted:last-child {
+  margin-top: 15px;
+}
+
+.text {
+  font-size: var(--font-size-medium);
+  color: var(--color-gray-text);
+}
+
+.downloadContainer {
+  position: absolute;
+  right: 100px;
+  bottom: 40px;
+}
+
+.icon {
+  margin-left: 20px;
+  vertical-align: bottom;
+}
