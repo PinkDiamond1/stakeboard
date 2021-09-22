@@ -25,7 +25,7 @@ export const IdentitySelector: React.FC<Props> = ({
       options={options}
       onChange={onChange}
       clearValue={clearValue}
-      placeholder={'Select KILT Identity'}
+      placeholder={'Select Identity'}
     />
   )
 }
