@@ -13,6 +13,7 @@ import { NoTokens } from './NoTokens'
 import { NotAcceptedTerms } from './NotAcceptedTerms'
 import { Icon } from '../Icon/Icon'
 import { Button } from '../Button/Button'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 const backgrounds = [bg1, bg2, bg3, bg4]
 
@@ -26,7 +27,7 @@ enum OnboardingStatus {
 
 function isUsableAccount(account: Account) {
   if (account.staked > 0) return true
-  if (account.stakeable >= 1000) return true
+  if (account.stakeable >= 1001) return true
   if (account.unstaking.length > 0) return true
 }
 
@@ -101,15 +102,10 @@ const DownloadLinks: React.FC = () => {
 }
 
 export interface Props {
-  accounts: Account[]
   extensions: Extension[]
 }
-export const Onboarding: React.FC<Props> = ({
-  accounts,
-  extensions,
-  children,
-}) => {
-  // Get state and corresponding text
+export const Onboarding: React.FC<Props> = ({ extensions, children }) => {
+  const { accounts } = useContext(BlockchainDataContext)
 
   const [background, setBackground] = useState<string | null>(null)
 

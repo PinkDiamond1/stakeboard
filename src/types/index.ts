@@ -24,6 +24,10 @@ export interface Data {
   favorite: boolean
 }
 
+export interface DataWithRank extends Data {
+  rank: number
+}
+
 export interface Account {
   address: string
   name?: string
@@ -49,13 +53,6 @@ export interface Candidate {
   isLeaving: bigint | false
   unsub?: Promise<() => void>
   userStakes: Array<Stake>
-}
-
-export interface ModalStake {
-  name: string | undefined
-  address: string
-  newStake: number
-  staked?: number
 }
 
 export interface Extension {

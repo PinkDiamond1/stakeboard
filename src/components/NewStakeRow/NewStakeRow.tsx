@@ -1,28 +1,24 @@
-import React, { useMemo, useState } from 'react'
+import React, { useContext, useMemo, useState } from 'react'
 import cx from 'classnames'
 import rowStyles from '../../styles/row.module.css'
 import { Button } from '../Button/Button'
 import { Input } from '../Input/Input'
 import { IdentitySelector } from '../../container/IdentitySelector/IdentitySelector'
-import { Account } from '../../types'
 import { useModal } from '../../utils/useModal'
 import { StakeModal } from '../StakeModal/StakeModal'
 import { getStatus } from '../../utils/stakeStatus'
 import { joinDelegators } from '../../utils'
 import { kiltToFemto } from '../../utils/conversion'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
 export interface Props {
   staked?: boolean
-  accounts: Account[]
   collator: string
 }
 
-export const NewStakeRow: React.FC<Props> = ({
-  staked = false,
-  accounts,
-  collator,
-}) => {
+export const NewStakeRow: React.FC<Props> = ({ staked = false, collator }) => {
+  const { accounts } = useContext(BlockchainDataContext)
   const { isVisible, showModal, hideModal } = useModal()
   const [newStake, setNewStake] = useState<number | undefined>()
   const [address, setAddress] = useState('')
@@ -56,7 +52,7 @@ export const NewStakeRow: React.FC<Props> = ({
       <td></td>
       <td className={rowStyles.column}>
         <div className={rowStyles.wrapper}>
-          STAKE COLLATOR FROM
+          STAKE FROM
           <span className={rowStyles.padTop10} />
           <IdentitySelector
             accounts={accounts}
@@ -67,7 +63,7 @@ export const NewStakeRow: React.FC<Props> = ({
       </td>
       <td className={rowStyles.column}>
         <div className={rowStyles.wrapper}>
-          MY STAKE
+          STAKE AMOUNT
           <span className={rowStyles.padTop10} />
           <Input
             number
@@ -80,18 +76,15 @@ export const NewStakeRow: React.FC<Props> = ({
         <div className={rowStyles.wrapper}>
           NOTE
           <span className={rowStyles.informationBox}>
-            Staked amounts can be withdrawn after 7 days.
+            Staked amounts can be withdrawn after 7 days
           </span>
         </div>
       </td>
       <td>
         {account && isVisible && newStake !== undefined && newStake >= 0 && (
           <StakeModal
-            modalStake={{
-              name: account.name,
-              address: account.address,
-              newStake,
-            }}
+            collatorAddress={collator}
+            newStake={newStake}
             status={getStatus(newStake, account.staked)}
             closeModal={hideModal}
             onConfirm={handleDelegatorStake}

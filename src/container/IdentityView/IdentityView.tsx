@@ -8,23 +8,14 @@ import cx from 'classnames'
 import { withdrawStake } from '../../utils/chain'
 import { femtoToKilt } from '../../utils/conversion'
 import { padTime, blockToTime } from '../../utils/timeConvert'
-import { ChainTypes } from '../../types'
 import { format } from '../../utils/index'
 import { useTxSubmitter } from '../../utils/useTxSubmitter'
+import { getPercent } from '../../utils/stakePercentage'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
-export interface Props {
-  bestBlock?: ChainTypes.BlockNumber
-}
-
-function getPercent(percentageValue: number, secondValue: number) {
-  const total = percentageValue + secondValue
-  const percent = (percentageValue / total) * 100
-  return percent.toFixed(1)
-}
-
-export const IdentityView: React.FC<Props> = ({ bestBlock }) => {
+export const IdentityView: React.FC = () => {
+  const { bestBlock } = useContext(BlockchainDataContext)
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
-  // placeholder
   const {
     state: { account },
     dispatch,
@@ -66,7 +57,11 @@ export const IdentityView: React.FC<Props> = ({ bestBlock }) => {
             {account?.name}
           </div>
           <div className={styles.tokenbarContainer}>
-            <TokenBar staked={account.staked} stakeable={account.stakeable} />
+            <TokenBar
+              staked={account.staked}
+              stakeable={account.stakeable}
+              percentage
+            />
           </div>
         </div>
         <div className={styles.identityStakeContainer}>

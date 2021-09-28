@@ -6,15 +6,15 @@ import { StateContext } from '../../utils/StateContext'
 export const BlockchainNotication: React.FC = () => {
   const {
     state: {
-      transaction: { txHash, isInProgress },
+      transaction: { txHash, isInProgress, needsSignature },
     },
     dispatch,
   } = useContext(StateContext)
 
-  if (isInProgress) {
+  if (needsSignature) {
     return (
       <Modal
-        title="Ongoing Transaction"
+        title="SIGNATURE NEEDED"
         buttons={
           <Button
             onClick={() => dispatch({ type: 'resetTransaction' })}
@@ -22,7 +22,26 @@ export const BlockchainNotication: React.FC = () => {
           />
         }
       >
-        <p>Transaction in progress</p>
+        <p>
+          Please wait for your Wallet Extension to open and sign the transaction
+          there.
+        </p>
+      </Modal>
+    )
+  }
+
+  if (isInProgress) {
+    return (
+      <Modal
+        title="TRANSACTION IN PROGRESS"
+        buttons={
+          <Button
+            onClick={() => dispatch({ type: 'resetTransaction' })}
+            label={'close'}
+          />
+        }
+      >
+        <p>Magic is happening...</p>
       </Modal>
     )
   }
@@ -30,7 +49,7 @@ export const BlockchainNotication: React.FC = () => {
   if (typeof txHash === 'string') {
     return (
       <Modal
-        title="Transaction successful"
+        title="TRANSACTION COMPLETE"
         buttons={
           <Button
             onClick={() => dispatch({ type: 'resetTransaction' })}
