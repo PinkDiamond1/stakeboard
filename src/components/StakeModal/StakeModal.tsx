@@ -46,6 +46,14 @@ export const StakeModal: React.FC<Props> = ({
           Collator {shortAddress}? <br />
           <br />
           STAKE: {newStake.toLocaleString()} <br />
+          <br />
+          Please note that you need to have
+          <br />
+          additional funds to pay fees for every transaction
+          <br />
+          you want to make (e.g. stake,
+          <br />
+          unstake, reduce stake etc.).
         </Modal>
       )
     case 'increaseStake':
@@ -63,6 +71,14 @@ export const StakeModal: React.FC<Props> = ({
           Collator {shortAddress}? <br />
           <br />
           STAKE: {newStake.toLocaleString()} <br />
+          <br />
+          Please note that you need to have
+          <br />
+          additional funds to pay fees for every transaction
+          <br />
+          you want to make (e.g. stake,
+          <br />
+          unstake, reduce stake etc.).
         </Modal>
       )
     case 'decreaseStake':

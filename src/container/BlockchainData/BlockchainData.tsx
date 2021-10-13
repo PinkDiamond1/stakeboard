@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Account, Candidate, ChainTypes, Data } from '../../types'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { femtoToKilt } from '../../utils/conversion'
-import { AccountInfo, initialize } from '../../utils/polling'
+import { AccountInfo, initialize, OverallTotalStake } from '../../utils/polling'
 import { StoredStateContext } from '../../utils/StoredStateContext'
 
 export interface Props {
@@ -19,11 +19,13 @@ export const BlockchainData: React.FC<Props> = ({
   const [dataSet, setDataSet] = useState<Data[]>([])
   const [accounts, setAccounts] = useState<Account[]>([])
   const [sessionInfo, setSessionInfo] = useState<ChainTypes.RoundInfo>()
-  const [bestBlock, setBestBlock] = useState<ChainTypes.BlockNumber>()
+  const [bestBlock, setBestBlock] = useState<number>()
+  const [bestFinalisedBlock, setBestFinalisedBlock] = useState<number>()
   const [
-    bestFinalisedBlock,
-    setBestFinalisedBlock,
-  ] = useState<ChainTypes.BlockNumber>()
+    overallTotalStake,
+    setOverallTotalStake,
+  ] = useState<OverallTotalStake>()
+  const [totalIssuance, setTotalIssuance] = useState<bigint>()
   const [accountInfos, setAccountInfos] = useState<Record<string, AccountInfo>>(
     {}
   )
@@ -53,6 +55,8 @@ export const BlockchainData: React.FC<Props> = ({
           setSessionInfo(chainInfo.sessionInfo)
           setBestBlock(chainInfo.bestBlock)
           setBestFinalisedBlock(chainInfo.bestFinalisedBlock)
+          setOverallTotalStake(chainInfo.overrallTotalStake)
+          setTotalIssuance(chainInfo.totalIssuance)
           setAccountInfos(newAccountInfos)
         }
       )
@@ -121,7 +125,15 @@ export const BlockchainData: React.FC<Props> = ({
 
   return (
     <BlockchainDataContext.Provider
-      value={{ dataSet, accounts, sessionInfo, bestBlock, bestFinalisedBlock }}
+      value={{
+        dataSet,
+        accounts,
+        sessionInfo,
+        bestBlock,
+        bestFinalisedBlock,
+        overallTotalStake,
+        totalIssuance,
+      }}
     >
       {children}
     </BlockchainDataContext.Provider>
