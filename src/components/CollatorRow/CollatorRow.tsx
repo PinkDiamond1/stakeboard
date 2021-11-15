@@ -7,9 +7,8 @@ import rowStyles from '../../styles/row.module.css'
 import { format, leftFillZero } from '../../utils'
 import { DataWithRank } from '../../types'
 import { StoredStateContext } from '../../utils/StoredStateContext'
+import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 
-// TODO: Max candidates will be changed at a later date. Smaller now for testing purposes.
-const MAX_SELECTED_CANDIDATES = 16
 export interface Props {
   entry: DataWithRank
   setExpanded: (expanded: boolean) => void
@@ -22,6 +21,7 @@ export const CollatorRow: React.FC<Props> = ({
   expanded,
 }) => {
   const { dispatch } = useContext(StoredStateContext)
+  const { maxCandidateCount } = useContext(BlockchainDataContext)
 
   const hasStakes = entry.stakes.length
 
@@ -77,11 +77,13 @@ export const CollatorRow: React.FC<Props> = ({
       </td>
       <td>
         <span
-          className={cx({
+          className={cx(rowStyles.rank, {
             [rowStyles.topRank]:
-              entry.rank && entry.rank <= MAX_SELECTED_CANDIDATES,
+              entry.rank &&
+              maxCandidateCount &&
+              entry.rank <= maxCandidateCount,
             [rowStyles.candidatePool]:
-              entry.rank && entry.rank > MAX_SELECTED_CANDIDATES,
+              entry.rank && maxCandidateCount && entry.rank > maxCandidateCount,
           })}
         >
           {leftFillZero(entry.rank, 3)}
