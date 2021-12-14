@@ -177,6 +177,7 @@ export const initialize = async (
   ) => void
 ) => {
   let timer = 0
+  let shouldKeepUpdating = true
 
   const update = async () => {
     const [
@@ -184,7 +185,7 @@ export const initialize = async (
       chainInfo,
     ] = await Promise.all([updateCollators(), updateChainInfo()])
 
-    if (!accounts) {
+    if (!accounts.length) {
       updateCallback(
         candidates,
         selectedCandidates,
@@ -205,6 +206,7 @@ export const initialize = async (
           }
         })
       })
+
       updateCallback(
         candidates,
         selectedCandidates,
@@ -218,14 +220,16 @@ export const initialize = async (
   const keepUpdating = () => {
     timer = window.setTimeout(async () => {
       await update()
-      keepUpdating()
+      if (shouldKeepUpdating) keepUpdating()
     }, interval * 1000)
   }
 
-  await update()
-  keepUpdating()
+  update().then(() => {
+    if (shouldKeepUpdating) keepUpdating()
+  })
 
   const stop = () => {
+    shouldKeepUpdating = false
     if (timer) {
       clearTimeout(timer)
       timer = 0
