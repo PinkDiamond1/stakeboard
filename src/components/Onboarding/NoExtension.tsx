@@ -14,12 +14,13 @@ export const NoExtension: React.FC = () => {
         As a delegator you can choose one collator to back per each KILT
         Identity and get rewarded when they successfully produce blocks.
         <br />
+        <br />
         Sleep less, stake more!
       </p>
       <p className={styles.text}>
         In order to enter the halfpipe, download the Sporran extension, create a
         KILT Identity and load it with at least
-        {` ${minDelegatorStake + 1}`}
+        {` ${minDelegatorStake + 1} `}
         KILT Coins. If you have the extension already, make sure to give
         Stakeboard access to it.
       </p>
