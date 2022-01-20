@@ -1,6 +1,6 @@
 {
   "name": "staking-platform",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "dependencies": {
     "@kiltprotocol/type-definitions": "^0.1.15",
