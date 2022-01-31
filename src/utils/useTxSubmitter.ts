@@ -18,9 +18,11 @@ export const useTxSubmitter = () => {
     try {
       dispatch({ type: 'needsSignature' })
       await signAndSend(address, tx, onSuccess, onError)
+
       dispatch({ type: 'transactionInProgress' })
     } catch (e) {
       console.error(e)
+      onError(e)
       dispatch({ type: 'resetTransaction' })
     }
   }
