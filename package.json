@@ -1,7 +1,8 @@
 {
   "name": "staking-platform",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
+  "license": "BSD-4-Clause",
   "dependencies": {
     "@kiltprotocol/type-definitions": "^0.1.15",
     "@polkadot/api": "^6.4.2",
