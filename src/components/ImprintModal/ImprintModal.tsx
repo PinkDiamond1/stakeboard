@@ -25,7 +25,7 @@ export const ImprintModal: React.FC<Props> = ({ closeModal }) => {
         <br />
         Registration Number: HRB 231219B
         <br />
-        Tax No: 29/244/31363
+        VAT No: DE 346528612
         <br />
         Managing Director: Ingo Rübe
         <br />
