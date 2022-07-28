@@ -10,15 +10,13 @@ export interface Props {
 
 export const Web3Name: React.FC<Props> = ({ name }) => {
   return (
-    <>
-      <a
-        className={styles.yellow}
-        href={W3N_URL + name}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        {W3N_PREFIX + name}
-      </a>
-    </>
+    <a
+      className={styles.yellow}
+      href={W3N_URL + name}
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      {W3N_PREFIX + name}
+    </a>
   )
 }
