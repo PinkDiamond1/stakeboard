@@ -5,6 +5,7 @@ import { Identicon } from '../Identicon/Identicon'
 import styles from './Collator.module.css'
 import { shortenAddress } from '../../utils/shortenAddress'
 import { getConnection } from '../../utils/useConnect'
+import { Web3Name } from '../Web3Name/Web3Name'
 
 export interface Props {
   address: string
@@ -48,7 +49,7 @@ export const Collator: React.FC<Props> = ({ address, activeSince }) => {
       </span>
       <div className={styles.wrapper}>
         <span title={address} className={styles.address}>
-          {web3name || shortAddress}
+          {web3name ? <Web3Name name={web3name} /> : shortAddress}
         </span>
       </div>
     </>
