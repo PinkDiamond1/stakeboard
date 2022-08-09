@@ -69,7 +69,7 @@ export const CollatorRow: React.FC<Props> = ({
             type="pickaxe_orange"
             pulsing={true}
             alt="leaving"
-            tooltip="Leaving and won't build blocks soon."
+            tooltip="Leaving the collator set within 2 hours."
           />
         ) : entry.active ? (
           <Icon
