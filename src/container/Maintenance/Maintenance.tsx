@@ -1,13 +1,13 @@
-import styles from './Maintenance.module.css';
+import styles from './Maintenance.module.css'
 
 export function Maintenance() {
   return (
     <div className={styles.container}>
       <div className={styles.contents}>
-        <h1 className={styles.heading}>We´ll be back soon</h1>
+        <h1 className={styles.heading}>Currently under maintenance</h1>
         <p className={styles.text}>
-          Sorry for the inconvenience but we’re performing some maintenance at
-          the moment.
+          Stakeboard is under maintenance for a short time, as KILT migrates
+          from Kusama to Polkadot.
         </p>
         <a
           className={styles.anchor}
@@ -15,9 +15,9 @@ export function Maintenance() {
           target="_blank"
           rel="noreferrer"
         >
-          Please check here for more info
+          Please check our status page for updates.
         </a>
       </div>
     </div>
-  );
+  )
 }
