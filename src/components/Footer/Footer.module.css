@@ -18,12 +18,26 @@
   background-color: var(--color-table-header);
 }
 
+.name {
+  font-family: var(--font-footer);
+  font-size: var(--font-size-medium);
+  text-decoration: none;
+}
+
 .reward {
   display: flex;
   padding-left: 10px;
 }
 .legal {
   display: flex;
+  gap: 10px;
+}
+.legalAnchor {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.legalAnchor:hover {
+  text-decoration: underline;
 }
 
 .versionInfo {
@@ -31,15 +45,6 @@
   font-size: var(--font-size-small);
   color: var(--color-gray-alt-text);
   padding-right: 10px;
-}
-.name {
-  font-family: var(--font-countdown);
-  font-size: var(--font-size-small);
-  text-decoration: none;
-}
-
-.yellow {
-  color: var(--color-primary);
 }
 
 .gray {
@@ -60,4 +65,5 @@
   background-color: var(--color-primary);
   margin-left: 10px;
   margin-right: 10px;
+  padding-top: 5px;
 }

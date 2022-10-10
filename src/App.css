@@ -40,12 +40,19 @@
   src: url('./fonts/asap-condensed-v15-latin-700.woff2') format('woff2');
 }
 
+@font-face {
+  font-family: 'Overpass Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./fonts/Overpass-Regular.woff2') format('woff2');
+}
 
 :root {
   /* Fonts */
   --font-primary: 'Ubuntu', sans-serif;
   --font-countdown: 'M PLUS Rounded 1c', sans-serif;
   --font-dashboard: 'Asap Condensed', sans-serif;
+  --font-footer: 'Overpass Regular', sans-serif;
   --font-size-big: 28px;
   --font-size-primary: 18px;
   --font-size-medium: 14px;
