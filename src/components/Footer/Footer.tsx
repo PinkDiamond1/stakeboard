@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styles from './Footer.module.css'
 import packageInfo from '../../../package.json'
-// import PDF from '../../uploads/220106_Stakeboard_Terms&License.pdf'
-import { ImprintModal } from '../ImprintModal/ImprintModal'
-// import { useModal } from '../../utils/useModal'
 import {
   getPercentage,
   delegatorsRewardRate,
@@ -13,7 +10,6 @@ import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import cx from 'classnames'
 
 export const Footer: React.FC = () => {
-  // const { isVisible, showModal, hideModal } = useModal()
   const [delegatorsPercentage, setDelegatorsPercentage] = useState<string>('0')
   const [delegatorsReward, setDelegatorsReward] = useState<string>('0')
 
