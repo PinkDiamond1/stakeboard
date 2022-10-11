@@ -96,7 +96,9 @@ export const Footer: React.FC = () => {
           </span>
         </div>
 
-        <div className={styles.versionInfo}>v {packageInfo.version}</div>
+        <div className={styles.versionInfo}>
+          v {packageInfo.version} © 2022 B.T.E. BOTLabs Trusted Entity GmbH
+        </div>
       </div>
     </div>
   )
