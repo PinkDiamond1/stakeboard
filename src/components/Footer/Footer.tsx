@@ -39,9 +39,9 @@ export const Footer: React.FC = () => {
   }, [bestBlock, delegatorsPercentage])
 
   return (
-    <div className={styles.footerContainer}>
+    <footer className={styles.footerContainer}>
       <div className={cx(styles.footer, styles.name)}>
-        <div className={styles.legal}>
+        <nav className={styles.legal}>
           <a
             className={styles.legalAnchor}
             href="imprint.html"
@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
           >
             Support
           </a>
-        </div>
+        </nav>
         <div className={styles.reward}>
           <span className={cx(styles.gray, styles.paddingRight)}>STAKED</span>
           <span
@@ -100,6 +100,6 @@ export const Footer: React.FC = () => {
           v {packageInfo.version} © 2022 B.T.E. BOTLabs Trusted Entity GmbH
         </div>
       </div>
-    </div>
+    </footer>
   )
 }
