@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
           </a>
           <a
             className={styles.legalAnchor}
-            href={process.env.PUBLIC_URL + '/terms.html'}
+            href={process.env.PUBLIC_URL + 'terms.html'}
             target="_blank"
             rel="noreferrer"
           >
