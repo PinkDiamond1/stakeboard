@@ -44,7 +44,7 @@ export const Footer: React.FC = () => {
         <nav className={styles.legal}>
           <a
             className={styles.legalAnchor}
-            href="imprint.html"
+            href={process.env.PUBLIC_URL + 'imprint.html'}
             target="_blank"
             rel="noreferrer"
           >
@@ -52,7 +52,7 @@ export const Footer: React.FC = () => {
           </a>
           <a
             className={styles.legalAnchor}
-            href="terms.html"
+            href={process.env.PUBLIC_URL + 'terms.html'}
             target="_blank"
             rel="noreferrer"
           >
