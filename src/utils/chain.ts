@@ -1,14 +1,16 @@
-import type { Vec, Option, BTreeMap, Tuple, u32, u128 } from '@polkadot/types'
+import { Vec, Option, BTreeMap, Tuple, u32, u128 } from '@polkadot/types'
 import type {
   AccountId,
   Balance,
   BalanceOf,
   BlockNumber,
 } from '@polkadot/types/interfaces'
-import { Candidate, ChainTypes } from '../types'
+import { Candidate, ChainTypes, StakingRates } from '../types'
 import { web3FromAddress } from '@polkadot/extension-dapp'
 import type { SubmittableExtrinsic } from '@polkadot/api/promise/types'
 import { getConnection } from './useConnect'
+import { StakingRates as StakingRatesChain } from '@kiltprotocol/augment-api'
+import { stakingRatesToHuman } from './stakePercentage'
 
 export async function getGenesis() {
   const api = await getConnection()
@@ -87,6 +89,29 @@ export async function queryMinDelegatorStake(): Promise<u128> {
   return api.consts.parachainStaking.minDelegatorStake as u128
 }
 
+export async function queryStakingRates(): Promise<StakingRates> {
+  const api = await getConnection()
+  try {
+    const rates = await api.call.staking.getStakingRates<StakingRatesChain>()
+    return stakingRatesToHuman(rates)
+  } catch (e) {
+    console.warn(e)
+    return {
+      collatorRewardRate: 0,
+      collatorStakingRate: 0,
+      delegatorRewardRate: 0,
+      delegatorStakingRate: 0,
+    }
+  }
+}
+
+export async function getUnclaimedStakingRewards(
+  account: string
+): Promise<Balance> {
+  const api = await getConnection()
+  return api.call.staking.getUnclaimedStakingRewards<Balance>(account)
+}
+
 export async function getMaxNumberDelegators(): Promise<u32> {
   const api = await getConnection()
   return api.consts.parachainStaking.maxDelegatorsPerCollator as u32
@@ -153,13 +178,13 @@ export async function joinDelegators(collator: string, stake: bigint) {
   const api = await getConnection()
   return api.tx.parachainStaking.joinDelegators(collator, stake)
 }
-export async function delegatorStakeMore(collator: string, more: bigint) {
+export async function delegatorStakeMore(more: bigint) {
   const api = await getConnection()
-  return api.tx.parachainStaking.delegatorStakeMore(collator, more)
+  return api.tx.parachainStaking.delegatorStakeMore(more)
 }
-export async function delegatorStakeLess(collator: string, less: bigint) {
+export async function delegatorStakeLess(less: bigint) {
   const api = await getConnection()
-  return api.tx.parachainStaking.delegatorStakeLess(collator, less)
+  return api.tx.parachainStaking.delegatorStakeLess(less)
 }
 export async function leaveDelegators() {
   const api = await getConnection()
@@ -169,4 +194,12 @@ export async function leaveDelegators() {
 export async function withdrawStake(account: string) {
   const api = await getConnection()
   return api.tx.parachainStaking.unlockUnstaked(account)
+}
+export async function claimDelegatorRewards() {
+  const api = await getConnection()
+  const txs = [
+    api.tx.parachainStaking.incrementDelegatorRewards(),
+    api.tx.parachainStaking.claimRewards(),
+  ]
+  return api.tx.utility.batch(txs)
 }

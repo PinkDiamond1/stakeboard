@@ -1,4 +1,4 @@
-import { Candidate, ChainTypes } from '../types'
+import { Candidate, ChainTypes, StakingRates } from '../types'
 import {
   getCandidatePool,
   getCurrentCollators,
@@ -14,6 +14,8 @@ import {
   queryOverallTotalStake,
   queryMaxCandidateCount,
   queryMinDelegatorStake,
+  queryStakingRates,
+  getUnclaimedStakingRewards,
   getMaxNumberDelegators,
 } from './chain'
 import { femtoToKilt } from './conversion'
@@ -61,6 +63,7 @@ type ChainInfo = {
   maxCandidateCount: number
   minDelegatorStake: number
   maxNumberDelegators: number
+  stakingRates: StakingRates
 }
 
 const updateChainInfo = async (): Promise<ChainInfo> => {
@@ -72,6 +75,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     totalIssuance,
     maxCandidateCount,
     minDelegatorStake,
+    stakingRates,
     maxNumberDelegators,
   ] = await Promise.all([
     querySessionInfo(),
@@ -81,6 +85,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     queryTotalIssurance(),
     queryMaxCandidateCount(),
     queryMinDelegatorStake(),
+    queryStakingRates(),
     getMaxNumberDelegators(),
   ])
 
@@ -96,6 +101,7 @@ const updateChainInfo = async (): Promise<ChainInfo> => {
     maxCandidateCount: maxCandidateCount.toNumber(),
     minDelegatorStake: femtoToKilt(minDelegatorStake.toBigInt()),
     maxNumberDelegators: maxNumberDelegators.toNumber(),
+    stakingRates,
   }
 
   return chainInfo
@@ -114,7 +120,8 @@ export type AccountInfo = {
   stakeable: bigint
   totalStake: bigint
   unstaking: Array<Unstaking>
-  stakes: Array<Delegation>
+  delegation: Delegation
+  rewards: bigint
 }
 
 const updateAccountInfos = async (accounts: string[]) => {
@@ -124,6 +131,7 @@ const updateAccountInfos = async (accounts: string[]) => {
       getBalance(account),
       getUnstakingAmounts(account),
       getDelegatorStake(account),
+      getUnclaimedStakingRewards(account),
     ])
   )
 
@@ -135,14 +143,28 @@ const updateAccountInfos = async (accounts: string[]) => {
     const address = account[0]
     const balance = account[1]
     const unstakingChain = account[2]
-    const stake = account[3]
+    const maybeDelegation = account[3]
+    const rewards = account[4].toBigInt()
+
+    let totalStake = 0n
+    let delegation = {
+      collator: '',
+      amount: 0n,
+    }
+
+    // Only addresses which have an active delegation can be unwrapped
+    if (maybeDelegation.isSome) {
+      const stake = maybeDelegation.unwrap()
+      totalStake = stake.amount.toBigInt()
+      delegation = {
+        collator: stake.owner.toString(),
+        amount: stake.amount.toBigInt(),
+      }
+    }
 
     const {
       data: { free },
     } = balance
-
-    const totalStake = stake.unwrapOrDefault().total.toBigInt()
-    const stakeable = free.toBigInt() - totalStake
 
     const unstaking: Array<Unstaking> = []
     unstakingChain.forEach((value, key) => {
@@ -152,18 +174,14 @@ const updateAccountInfos = async (accounts: string[]) => {
       })
     })
 
-    const stakes: Array<Delegation> = stake
-      .unwrapOrDefault()
-      .delegations.map((chainStake) => ({
-        collator: chainStake.owner.toString(),
-        amount: chainStake.amount.toBigInt(),
-      }))
+    const stakeable = free.toBigInt() - totalStake
 
     accountInfos[address] = {
       totalStake,
       stakeable,
       unstaking,
-      stakes,
+      delegation,
+      rewards,
     }
   })
 
@@ -201,15 +219,13 @@ export const initialize = async (
     } else {
       const accountInfos = await updateAccountInfos(accounts)
 
-      Object.entries(accountInfos).forEach(([address, accountInfo]) => {
-        accountInfo.stakes.forEach((delegation) => {
-          if (candidates[delegation.collator]) {
-            candidates[delegation.collator].userStakes.push({
-              stake: delegation.amount,
-              account: address,
-            })
-          }
-        })
+      Object.entries(accountInfos).forEach(([address, { delegation }]) => {
+        if (candidates[delegation.collator]) {
+          candidates[delegation.collator].userStakes.push({
+            stake: delegation.amount,
+            account: address,
+          })
+        }
       })
 
       updateCallback(

@@ -33,8 +33,8 @@ export interface RoundInfo extends Struct {
 }
 
 export interface Delegator extends Struct {
-  delegations: Vec<Stake>
-  total: Balance
+  owner: AccountId
+  amount: Balance
 }
 
 export interface TotalStake extends Struct {

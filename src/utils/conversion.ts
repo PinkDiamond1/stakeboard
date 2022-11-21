@@ -8,3 +8,10 @@ export function femtoToKilt(big: bigint) {
   const inKilt = big / 10n ** 15n
   return Number(inKilt)
 }
+
+export function femtoKiltToDigits(femtoKilt: bigint, digits: number) {
+  const exponent =  BigInt(15 - digits)
+  const shiftedKilt = femtoKilt / 10n ** exponent
+
+  return Number(shiftedKilt) / Math.pow(10, digits)
+}

@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { Button } from '../../components/Button/Button'
+import { Button, ButtonColor } from '../../components/Button/Button'
 import { StateContext } from '../../utils/StateContext'
 import { TokenBar } from '../../components/Dashboard/TokenBar'
 import { Identicon } from '../../components/Identicon/Identicon'
 import styles from './IdentityView.module.css'
 import cx from 'classnames'
-import { withdrawStake } from '../../utils/chain'
+import { claimDelegatorRewards, withdrawStake } from '../../utils/chain'
 import { femtoToKilt } from '../../utils/conversion'
 import { padTime, blockToTime } from '../../utils/timeConvert'
 import { format } from '../../utils/index'
@@ -13,10 +13,13 @@ import { useTxSubmitter } from '../../utils/useTxSubmitter'
 import { getPercent } from '../../utils/stakePercentage'
 import { BlockchainDataContext } from '../../utils/BlockchainDataContext'
 import { Account } from '../../types'
+import { useModal } from '../../utils/useModal'
+import { RewardModal } from '../../components/RewardsModal/RewardsModal'
 
 export const IdentityView: React.FC = () => {
   const { bestBlock, accounts } = useContext(BlockchainDataContext)
   const [readyToWithdraw, setReadyToWithdraw] = useState(0)
+  const { isVisible, showModal, hideModal } = useModal()
   const [accountData, setAccountData] = useState<Account | undefined>()
   const {
     state: { account },
@@ -24,6 +27,14 @@ export const IdentityView: React.FC = () => {
   } = useContext(StateContext)
 
   const signAndSubmitTx = useTxSubmitter()
+
+  const handleRewardsClaim = async () => {
+    if (!account) throw new Error('No account selected')
+
+    const tx = await claimDelegatorRewards()
+    await signAndSubmitTx(account.address, tx)
+    hideModal()
+  }
 
   const withdraw = async () => {
     if (readyToWithdraw > 0 && account) {
@@ -97,7 +108,44 @@ export const IdentityView: React.FC = () => {
             </span>
           </span>
         </div>
+        <div className={styles.identityStakeContainer}>
+          <span className={cx(styles.labelSmall, styles.labelGray)}>
+            Unclaimed staking rewards <br />
+            <span className={cx(styles.label, styles.labelGreen)}>
+              {format(accountData.rewards)}
+            </span>
+            {accountData.rewards < 0.001 && (
+              <span className={cx(styles.labelGreen)}>
+                {' '}
+                (less than 1 milli-KILT (0.001 KILT))
+              </span>
+            )}
+          </span>
+          <div className={styles.buttonContainer}>
+            {isVisible && (
+              <RewardModal
+                accountAddress={accountData.address}
+                rewards={accountData.rewards}
+                closeModal={hideModal}
+                onConfirm={handleRewardsClaim}
+              />
+            )}
+          </div>
+        </div>
         <div className={styles.lockedContainer}>
+          <span
+            className={cx(styles.labelSmall, styles.labelGray, styles.greenBar)}
+          >
+            Ready to claim (rewards)
+          </span>
+          {accountData.rewards >= 0.05 && (
+            <div className={styles.buttonCont}>
+              <Button onClick={showModal} label={'Claim'} color={ButtonColor.green} />
+              <span className={cx(styles.label, styles.labelGray)}>
+                {format(accountData.rewards)}
+              </span>
+            </div>
+          )}
           <span
             className={cx(
               styles.labelSmall,
@@ -105,7 +153,7 @@ export const IdentityView: React.FC = () => {
               styles.orangeBar
             )}
           >
-            Ready to withdraw
+            Ready to withdraw (unstake)
           </span>
           {readyToWithdraw > 0 && (
             <div className={styles.buttonCont}>
