@@ -138,7 +138,7 @@ export const IdentityView: React.FC = () => {
           >
             Ready to claim (rewards)
           </span>
-          {accountData.rewards >= 0.05 && (
+          {accountData.rewards > 0.001 && (
             <div className={styles.buttonCont}>
               <Button onClick={showModal} label={'Claim'} color={ButtonColor.green} />
               <span className={cx(styles.label, styles.labelGray)}>
