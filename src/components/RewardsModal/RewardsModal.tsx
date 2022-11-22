@@ -42,7 +42,7 @@ export const RewardModal: React.FC<Props> = ({
 
   return (
     <Modal
-      title="CLAIM REWARDS STAKE"
+      title="CLAIM STAKING REWARDS"
       buttons={
         <>
           <Button onClick={closeModal} label="CANCEL" />
