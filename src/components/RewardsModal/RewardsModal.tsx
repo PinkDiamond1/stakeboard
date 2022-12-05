@@ -58,17 +58,18 @@ export const RewardModal: React.FC<Props> = ({
         <br />
       </b>
       <br />
-      KILT staking rewards can be<br></br>
-      claimed manually at the convenience<br></br>
-      of the account owner.
+      KILT staking rewards need to be <br></br>
+      claimed manually by the account owner,<br></br>
+      whenever most convenient for them.
       <br />
       <br />
-      Please note that you need to pay the
-      <br />
-      transaction fee.
-      <br />
-      <br />
-      <i>ESTIMATED TX FEE: {fee} KILT</i>
+      <i>
+        Claiming requires a small transaction
+        <br />
+        fee each time, estimated to be
+        <br />
+        {fee} KILT.
+      </i>
       <br />
     </Modal>
   )
